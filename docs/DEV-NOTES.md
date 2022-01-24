@@ -48,3 +48,7 @@ Once we have the driver port, we will create a driven port that will match with 
 ![First driven port of the hexagon](images/first-driven-port.png)
 
 Once we have the second port, we already defined the hexagon, and we can delete the previous test because it makes no sense anymore and it is not giving any advantage.
+
+At this point we solved all the required scaffolding, and we created the ports interfaces. Now we need to create the REST endpoint and test with an e2e test that all is working properly using actual adapters.
+
+![First adapters to interact with the hexagon](images/first-adapters.png)
