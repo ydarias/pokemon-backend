@@ -11,7 +11,6 @@ Doing this coding practice the goals are:
 
 The instructions don't define user stories, so we will just write down the requirements given.
 
-* Query Pokemons by name.
 * Query Pokemons by type.
 * Query favorite Pokemons.
 * Query Pokemons paginated.
@@ -22,4 +21,12 @@ The instructions don't define user stories, so we will just write down the requi
 
 ## Step by step development
 
-TBD
+My first step will be to check the requirements, removing duplicated functionality and organizing (sorting) them to make the development process simpler.
+
+* Get a Pokemon by its ID.
+* Get a Pokemon by its name.
+* Query Pokemons paginated.
+* Query Pokemons by type.
+* Mark (or unmark) a Pokemon as favorite.
+* Query favorite Pokemons.
+* Get the types of Pokemons as a list.
