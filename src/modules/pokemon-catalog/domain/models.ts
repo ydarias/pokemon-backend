@@ -8,11 +8,17 @@ export interface Pokemon {
   weight: Measurement;
   height: Measurement;
   fleeRate: number;
-  evolutionRequirements: {
+  evolutionRequirements?: {
     amount: number;
     name: string;
   };
-  evolutions: [
+  evolutions?: [
+    {
+      id: string;
+      name: string;
+    },
+  ];
+  previousEvolutions?: [
     {
       id: string;
       name: string;

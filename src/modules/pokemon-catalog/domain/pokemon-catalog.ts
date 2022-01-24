@@ -1,9 +1,11 @@
 import { ForQueryingPokemons } from './for-querying-pokemons';
 import { Pokemon } from './models';
-import { MockedPokemons } from '../../../utils/tests/pokemons';
+import { ForGettingPokemons } from './for-getting-pokemons';
 
 export class PokemonCatalog implements ForQueryingPokemons {
+  constructor(private readonly pokemonRepository: ForGettingPokemons) {}
+
   getPokemonByItsID(id: string): Pokemon {
-    return MockedPokemons.pikachu();
+    return this.pokemonRepository.getPokemonById(id);
   }
 }

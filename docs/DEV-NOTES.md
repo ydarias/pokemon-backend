@@ -42,3 +42,9 @@ The first step is to create a test that forces the creation of the port interfac
 From the hexagon API some decisions where applied related to the data structure:
 1. Because the ID of a Pokemon is a string, at the `evolution` field `id` is transformed into string.
 2. The height and weight of a Pokemon is returned with the unit separated from the value, so it can change in the future.
+
+Once we have the driver port, we will create a driven port that will match with the repository, using a second test.
+
+![First driven port of the hexagon](images/first-driven-port.png)
+
+Once we have the second port, we already defined the hexagon, and we can delete the previous test because it makes no sense anymore and it is not giving any advantage.
