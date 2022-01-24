@@ -39,7 +39,7 @@ Probably the easiest one to start with, and define the first port of the Hexagon
 
 The first step is to create a test that forces the creation of the port interface and a basic implementation of the Pokemon Catalog, returning hardcoded values.
 
-From the hexagon API some decisions where applied related to the data structure:
+Some changes from the original data were applied:
 1. Because the ID of a Pokemon is a string, at the `evolution` field `id` is transformed into string.
 2. The height and weight of a Pokemon is returned with the unit separated from the value, so it can change in the future.
 
