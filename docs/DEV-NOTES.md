@@ -60,6 +60,8 @@ Once we have the second port, we already defined the hexagon, and we can delete 
 
 ```typescript
 describe('A Pokemon Catalog', () => {
+  const raichu = MockedPokemons.raichu();
+    
   it('Gets a pokemon given its ID using a port mocked adapter', () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
@@ -106,4 +108,39 @@ At thins point, the feature is complete using an in memory implementation for th
 
 ### Get a Pokemon by its name
 
-TBD
+With all the scaffolding created to complete the hexagon code now is pretty simple. We create a new test and make it pass.
+
+```typescript
+describe('A Pokemon Catalog', () => {
+  const raichu = MockedPokemons.raichu();
+  const venusaur = MockedPokemons.venusaur();
+
+  it('Gets a pokemon given its ID using a port mocked adapter', () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
+      mockedPokemonsRepository,
+    );
+
+    mockedPokemonsRepository.getPokemonById
+      .calledWith('026')
+      .mockReturnValue(raichu);
+
+    expect(pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
+  });
+
+  it('Gets a pokemon given its name using a port mocked adapter', () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
+      mockedPokemonsRepository,
+    );
+
+    mockedPokemonsRepository.getPokemonByName
+      .calledWith('venusaur')
+      .mockReturnValue(venusaur);
+
+    expect(pokemonCatalog.getPokemonByItsName('venusaur')).toStrictEqual(
+      venusaur,
+    );
+  });
+});
+```

@@ -125,4 +125,69 @@ export class MockedPokemons {
       },
     };
   }
+
+  static venusaur(): Pokemon {
+    return {
+      id: '003',
+      name: 'Venusaur',
+      classification: 'Seed Pokémon',
+      types: ['Grass', 'Poison'],
+      resistant: ['Water', 'Electric', 'Grass', 'Fighting', 'Fairy'],
+      weaknesses: ['Fire', 'Ice', 'Flying', 'Psychic'],
+      weight: {
+        minimum: 87.5,
+        maximum: 112.5,
+        unit: 'kg',
+      },
+      height: {
+        minimum: 1.75,
+        maximum: 2.25,
+        unit: 'm,',
+      },
+      fleeRate: 0.05,
+      previousEvolutions: [
+        {
+          id: '001',
+          name: 'Bulbasaur',
+        },
+        {
+          id: '002',
+          name: 'Ivysaur',
+        },
+      ],
+      maxCP: 2392,
+      maxHP: 2580,
+      attacks: {
+        fast: [
+          {
+            name: 'Razor Leaf',
+            type: 'Grass',
+            damage: 15,
+          },
+          {
+            name: 'Vine Whip',
+            type: 'Grass',
+            damage: 7,
+          },
+        ],
+        special: [
+          {
+            name: 'Petal Blizzard',
+            type: 'Grass',
+            damage: 65,
+          },
+          {
+            name: 'Sludge Bomb',
+            type: 'Poison',
+            damage: 55,
+          },
+          {
+            name: 'Solar Beam',
+            type: 'Grass',
+            damage: 120,
+          },
+        ],
+      },
+    };
+  }
 }

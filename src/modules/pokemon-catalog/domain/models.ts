@@ -12,18 +12,14 @@ export interface Pokemon {
     amount: number;
     name: string;
   };
-  evolutions?: [
-    {
-      id: string;
-      name: string;
-    },
-  ];
-  previousEvolutions?: [
-    {
-      id: string;
-      name: string;
-    },
-  ];
+  evolutions?: {
+    id: string;
+    name: string;
+  }[];
+  previousEvolutions?: {
+    id: string;
+    name: string;
+  }[];
   maxCP: number;
   maxHP: number;
   attacks: {

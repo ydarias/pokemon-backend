@@ -17,6 +17,10 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
     return foundPokemons[0];
   }
 
+  getPokemonByName(name: string): Pokemon {
+    return undefined;
+  }
+
   private toPokemon(entity: any): Pokemon {
     return {
       id: entity.id,

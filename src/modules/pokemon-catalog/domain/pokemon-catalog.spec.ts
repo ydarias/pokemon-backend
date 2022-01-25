@@ -7,6 +7,7 @@ import { ForGettingPokemons } from './for-getting-pokemons';
 
 describe('A Pokemon Catalog', () => {
   const raichu = MockedPokemons.raichu();
+  const venusaur = MockedPokemons.venusaur();
 
   it('Gets a pokemon given its ID using a port mocked adapter', () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
@@ -19,5 +20,20 @@ describe('A Pokemon Catalog', () => {
       .mockReturnValue(raichu);
 
     expect(pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
+  });
+
+  it('Gets a pokemon given its name using a port mocked adapter', () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
+      mockedPokemonsRepository,
+    );
+
+    mockedPokemonsRepository.getPokemonByName
+      .calledWith('venusaur')
+      .mockReturnValue(venusaur);
+
+    expect(pokemonCatalog.getPokemonByItsName('venusaur')).toStrictEqual(
+      venusaur,
+    );
   });
 });

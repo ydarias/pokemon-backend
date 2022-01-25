@@ -8,4 +8,8 @@ export class PokemonCatalog implements ForQueryingPokemons {
   getPokemonByItsID(id: string): Pokemon {
     return this.pokemonRepository.getPokemonById(id);
   }
+
+  getPokemonByItsName(name: string): Pokemon {
+    return this.pokemonRepository.getPokemonByName(name);
+  }
 }
