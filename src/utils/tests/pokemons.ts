@@ -65,6 +65,69 @@ export class MockedPokemons {
     };
   }
 
+  static charizardView(): PokemonResponse {
+    return {
+      id: '006',
+      name: 'Charizard',
+      classification: 'Flame Pokémon',
+      types: ['Fire', 'Flying'],
+      resistant: ['Fire', 'Grass', 'Fighting', 'Bug', 'Steel', 'Fairy'],
+      weaknesses: ['Water', 'Electric', 'Rock'],
+      weight: {
+        minimum: '79.19kg',
+        maximum: '101.81kg',
+      },
+      height: {
+        minimum: '1.49m',
+        maximum: '1.91m',
+      },
+      fleeRate: 0.05,
+      'Previous evolution(s)': [
+        {
+          id: '004',
+          name: 'Charmander',
+        },
+        {
+          id: '005',
+          name: 'Charmeleon',
+        },
+      ],
+      maxCP: 2413,
+      maxHP: 2602,
+      attacks: {
+        fast: [
+          {
+            name: 'Ember',
+            type: 'Fire',
+            damage: 10,
+          },
+          {
+            name: 'Wing Attack',
+            type: 'Flying',
+            damage: 9,
+          },
+        ],
+        special: [
+          {
+            name: 'Dragon Claw',
+            type: 'Dragon',
+            damage: 35,
+          },
+          {
+            name: 'Fire Blast',
+            type: 'Fire',
+            damage: 100,
+          },
+          {
+            name: 'Flamethrower',
+            type: 'Fire',
+            damage: 55,
+          },
+        ],
+      },
+    };
+  }
+
   static raichu(): Pokemon {
     return {
       id: '026',

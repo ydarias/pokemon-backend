@@ -11,8 +11,15 @@ export class AppController {
   ) {}
 
   @Get('pokemons/:id')
-  getPokemonByID(@Param('id') id: string): PokemonResponse {
+  getPokemonById(@Param('id') id: string): PokemonResponse {
     return this.toPokemonResponse(this.pokemonCatalog.getPokemonByItsID(id));
+  }
+
+  @Get('pokemons/name/:name')
+  getPokemonByName(@Param('name') name: string): PokemonResponse {
+    return this.toPokemonResponse(
+      this.pokemonCatalog.getPokemonByItsName(name),
+    );
   }
 
   private toPokemonResponse(pokemon: Pokemon): PokemonResponse {
@@ -34,7 +41,7 @@ export class AppController {
       fleeRate: pokemon.fleeRate,
       evolutionRequirements: pokemon.evolutionRequirements,
       evolutions: pokemon.evolutions,
-      previousEvolutions: pokemon.previousEvolutions,
+      'Previous evolution(s)': pokemon.previousEvolutions,
       maxCP: pokemon.maxCP,
       maxHP: pokemon.maxHP,
       attacks: pokemon.attacks,

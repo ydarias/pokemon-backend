@@ -23,4 +23,12 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toStrictEqual(MockedPokemons.pikachuView());
   });
+
+  it('should support requesting a pokemon by its name', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/pokemons/name/charizard')
+      .expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.charizardView());
+  });
 });

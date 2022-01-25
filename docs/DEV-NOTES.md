@@ -144,3 +144,38 @@ describe('A Pokemon Catalog', () => {
   });
 });
 ```
+
+To complete the implementation we just need to create the e2e test and writing the required production code that will be fairly simple.
+
+```typescript
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('should support requesting a pokemon by its ID', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/pokemons/025')
+      .expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.pikachuView());
+  });
+
+  it('should support requesting a pokemon by its name', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/pokemons/name/charizard')
+      .expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.charizardView());
+  });
+});
+```
+
+**One of the things noticed at this step is the existence of a property called `Previous evolution(s)` which is not a good option if we want to use JSON. To keep the specification as given, we can do the transformation at the controller level, but internally it will be `previousEvolutions`.** 

@@ -18,7 +18,15 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
   }
 
   getPokemonByName(name: string): Pokemon {
-    return undefined;
+    const foundPokemons = pokemons
+      .filter((p) => p.name.toLowerCase() === name)
+      .map((p) => this.toPokemon(p));
+
+    if (foundPokemons.length === 0) {
+      throw new PokemonNotFoundError(name);
+    }
+
+    return foundPokemons[0];
   }
 
   private toPokemon(entity: any): Pokemon {
@@ -45,7 +53,7 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
         id: e.id.toString().padStart(3, '0'),
         name: e.name,
       })),
-      previousEvolutions: entity.previousEvolutions?.map((e) => ({
+      previousEvolutions: entity['Previous evolution(s)']?.map((e) => ({
         id: e.id.toString().padStart(3, '0'),
         name: e.name,
       })),

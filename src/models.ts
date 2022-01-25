@@ -22,7 +22,7 @@ export interface PokemonResponse {
     id: string;
     name: string;
   }[];
-  previousEvolutions?: {
+  'Previous evolution(s)'?: {
     id: string;
     name: string;
   }[];
