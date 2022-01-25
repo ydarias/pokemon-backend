@@ -5,11 +5,11 @@ import { ForGettingPokemons } from './for-getting-pokemons';
 export class PokemonCatalog implements ForQueryingPokemons {
   constructor(private readonly pokemonRepository: ForGettingPokemons) {}
 
-  getPokemonByItsID(id: string): Pokemon {
+  async getPokemonByItsID(id: string): Promise<Pokemon> {
     return this.pokemonRepository.getPokemonById(id);
   }
 
-  getPokemonByItsName(name: string): Pokemon {
+  async getPokemonByItsName(name: string): Promise<Pokemon> {
     return this.pokemonRepository.getPokemonByName(name);
   }
 }

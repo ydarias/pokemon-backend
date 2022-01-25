@@ -5,7 +5,7 @@ import { PokemonNotFoundError } from './errors';
 import * as pokemons from './pokemons.json';
 
 export class InMemoryPokemonRepository implements ForGettingPokemons {
-  getPokemonById(id: string): Pokemon {
+  async getPokemonById(id: string): Promise<Pokemon> {
     const foundPokemons = pokemons
       .filter((p) => p.id === id)
       .map((p) => this.toPokemon(p));
@@ -17,7 +17,7 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
     return foundPokemons[0];
   }
 
-  getPokemonByName(name: string): Pokemon {
+  async getPokemonByName(name: string): Promise<Pokemon> {
     const foundPokemons = pokemons
       .filter((p) => p.name.toLowerCase() === name)
       .map((p) => this.toPokemon(p));

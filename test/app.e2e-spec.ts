@@ -3,17 +3,22 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { MockedPokemons } from '../src/utils/tests/pokemons';
+import { testDatasetSeed } from '../seeds/test-pokemons.seed';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  jest.setTimeout(10000);
+
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
+    await testDatasetSeed();
   });
 
   it('should support requesting a pokemon by its ID', async () => {

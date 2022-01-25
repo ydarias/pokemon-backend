@@ -9,7 +9,7 @@ describe('A Pokemon Catalog', () => {
   const raichu = MockedPokemons.raichu();
   const venusaur = MockedPokemons.venusaur();
 
-  it('Gets a pokemon given its ID using a port mocked adapter', () => {
+  it('Gets a pokemon given its ID using a port mocked adapter', async () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
       mockedPokemonsRepository,
@@ -17,12 +17,12 @@ describe('A Pokemon Catalog', () => {
 
     mockedPokemonsRepository.getPokemonById
       .calledWith('026')
-      .mockReturnValue(raichu);
+      .mockResolvedValue(raichu);
 
-    expect(pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
+    expect(await pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
   });
 
-  it('Gets a pokemon given its name using a port mocked adapter', () => {
+  it('Gets a pokemon given its name using a port mocked adapter', async () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
       mockedPokemonsRepository,
@@ -30,9 +30,9 @@ describe('A Pokemon Catalog', () => {
 
     mockedPokemonsRepository.getPokemonByName
       .calledWith('venusaur')
-      .mockReturnValue(venusaur);
+      .mockResolvedValue(venusaur);
 
-    expect(pokemonCatalog.getPokemonByItsName('venusaur')).toStrictEqual(
+    expect(await pokemonCatalog.getPokemonByItsName('venusaur')).toStrictEqual(
       venusaur,
     );
   });

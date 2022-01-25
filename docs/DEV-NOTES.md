@@ -178,4 +178,12 @@ describe('AppController (e2e)', () => {
 });
 ```
 
-**One of the things noticed at this step is the existence of a property called `Previous evolution(s)` which is not a good option if we want to use JSON. To keep the specification as given, we can do the transformation at the controller level, but internally it will be `previousEvolutions`.** 
+**One of the things noticed at this step is the existence of a property called `Previous evolution(s)` which is not a good option if we want to use JSON. To keep the specification as given, we can do the transformation at the controller level, but internally it will be `previousEvolutions`.**
+
+### Query Pokemons paginated
+
+Up to this point we used a fake implementation (in-memory) as the pokemons repository. Because now we are going to use pagination it makes sense to start using the tools provided by Nest.js and TypeORM, but this step requires some previous work.
+
+- [ ] Start a PostgreSQL instance with Docker.
+- [ ] Create the TypeORM entity that maps to the DB.
+- [ ] Fill the DB with data to complete e2e tests.

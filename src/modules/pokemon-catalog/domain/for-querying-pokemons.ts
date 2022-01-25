@@ -1,6 +1,6 @@
 import { Pokemon } from './models';
 
 export interface ForQueryingPokemons {
-  getPokemonByItsID(id: string): Pokemon;
-  getPokemonByItsName(name: string): Pokemon;
+  getPokemonByItsID(id: string): Promise<Pokemon>;
+  getPokemonByItsName(name: string): Promise<Pokemon>;
 }

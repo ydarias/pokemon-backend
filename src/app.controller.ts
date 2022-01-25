@@ -11,19 +11,23 @@ export class AppController {
   ) {}
 
   @Get('pokemons/:id')
-  getPokemonById(@Param('id') id: string): PokemonResponse {
-    return this.toPokemonResponse(this.pokemonCatalog.getPokemonByItsID(id));
+  async getPokemonById(@Param('id') id: string): Promise<PokemonResponse> {
+    return this.toPokemonResponse(
+      await this.pokemonCatalog.getPokemonByItsID(id),
+    );
   }
 
   @Get('pokemons/name/:name')
-  getPokemonByName(@Param('name') name: string): PokemonResponse {
+  async getPokemonByName(
+    @Param('name') name: string,
+  ): Promise<PokemonResponse> {
     return this.toPokemonResponse(
-      this.pokemonCatalog.getPokemonByItsName(name),
+      await this.pokemonCatalog.getPokemonByItsName(name),
     );
   }
 
   private toPokemonResponse(pokemon: Pokemon): PokemonResponse {
-    return {
+    const response: PokemonResponse = {
       id: pokemon.id,
       name: pokemon.name,
       classification: pokemon.classification,
@@ -39,12 +43,23 @@ export class AppController {
         maximum: `${pokemon.height.maximum}${pokemon.height.unit}`,
       },
       fleeRate: pokemon.fleeRate,
-      evolutionRequirements: pokemon.evolutionRequirements,
-      evolutions: pokemon.evolutions,
-      'Previous evolution(s)': pokemon.previousEvolutions,
       maxCP: pokemon.maxCP,
       maxHP: pokemon.maxHP,
       attacks: pokemon.attacks,
     };
+
+    if (pokemon.previousEvolutions?.length > 0) {
+      response['Previous evolution(s)'] = pokemon.previousEvolutions;
+    }
+
+    if (pokemon.evolutions?.length > 0) {
+      response.evolutions = pokemon.evolutions;
+    }
+
+    if (pokemon.evolutionRequirements) {
+      response.evolutionRequirements = pokemon.evolutionRequirements;
+    }
+
+    return response;
   }
 }
