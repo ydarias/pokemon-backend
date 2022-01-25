@@ -184,6 +184,6 @@ describe('AppController (e2e)', () => {
 
 Up to this point we used a fake implementation (in-memory) as the pokemons repository. Because now we are going to use pagination it makes sense to start using the tools provided by Nest.js and TypeORM, but this step requires some previous work.
 
-- [ ] Start a PostgreSQL instance with Docker.
-- [ ] Create the TypeORM entity that maps to the DB.
-- [ ] Fill the DB with data to complete e2e tests.
+- [x] Start a PostgreSQL instance with Docker.
+- [x] Create the TypeORM entity that maps to the DB.
+- [x] Fill the DB with data to complete e2e tests.
