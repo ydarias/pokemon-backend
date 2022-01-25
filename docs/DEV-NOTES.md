@@ -39,6 +39,15 @@ Probably the easiest one to start with, and define the first port of the Hexagon
 
 The first step is to create a test that forces the creation of the port interface and a basic implementation of the Pokemon Catalog, returning hardcoded values.
 
+```typescript
+describe('A Pokemon Catalog', () => {
+  it('Gets a pokemon given its ID', () => {
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog();
+    expect(pokemonCatalog.getPokemonByItsID('025')).toStrictEqual(pikachu);
+  });
+});
+```
+
 Some changes from the original data were applied:
 1. Because the ID of a Pokemon is a string, at the `evolution` field `id` is transformed into string.
 2. The height and weight of a Pokemon is returned with the unit separated from the value, so it can change in the future.
@@ -47,8 +56,54 @@ Once we have the driver port, we will create a driven port that will match with 
 
 ![First driven port of the hexagon](images/first-driven-port.png)
 
-Once we have the second port, we already defined the hexagon, and we can delete the previous test because it makes no sense anymore and it is not giving any advantage.
+Once we have the second port, we already defined the hexagon, and we can delete the previous test because it makes no sense anymore, and it is not giving any value.
+
+```typescript
+describe('A Pokemon Catalog', () => {
+  it('Gets a pokemon given its ID using a port mocked adapter', () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(
+      mockedPokemonsRepository,
+    );
+
+    mockedPokemonsRepository.getPokemonById
+      .calledWith('026')
+      .mockReturnValue(raichu);
+
+    expect(pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
+  });
+});
+```
 
 At this point we solved all the required scaffolding, and we created the ports interfaces. Now we need to create the REST endpoint and test with an e2e test that all is working properly using actual adapters.
 
 ![First adapters to interact with the hexagon](images/first-adapters.png)
+
+```typescript
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('should support requesting a pokemon by its ID', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/pokemons/025')
+      .expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.pikachuView());
+  });
+});
+```
+
+At thins point, the feature is complete using an in memory implementation for the persistence.
+
+### Get a Pokemon by its name
+
+TBD

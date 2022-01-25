@@ -1,7 +1,8 @@
 import { Pokemon } from '../../modules/pokemon-catalog/domain/models';
+import { PokemonResponse } from '../../models';
 
 export class MockedPokemons {
-  static pikachu(): Pokemon {
+  static pikachuView(): PokemonResponse {
     return {
       id: '025',
       name: 'Pikachu',
@@ -10,14 +11,12 @@ export class MockedPokemons {
       resistant: ['Electric', 'Flying', 'Steel'],
       weaknesses: ['Ground'],
       weight: {
-        minimum: 5.25,
-        maximum: 6.75,
-        unit: 'kg',
+        minimum: '5.25kg',
+        maximum: '6.75kg',
       },
       height: {
-        minimum: 0.35,
-        maximum: 0.45,
-        unit: 'm',
+        minimum: '0.35m',
+        maximum: '0.45m',
       },
       fleeRate: 0.1,
       evolutionRequirements: {
