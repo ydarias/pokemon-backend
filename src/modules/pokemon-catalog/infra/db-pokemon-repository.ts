@@ -20,7 +20,7 @@ export class DbPokemonRepository implements ForGettingPokemons {
     );
   }
 
-  async countPokemons(): Promise<number> {
+  async countPokemons(filter?: SearchFilter): Promise<number> {
     return this.pokemonRepository.count({});
   }
 

@@ -4,5 +4,5 @@ export interface ForGettingPokemons {
   getPokemonById(id: string): Promise<Pokemon>;
   getPokemonByName(name: string): Promise<Pokemon>;
   findPokemons(limit: number, skip: number, filter?: SearchFilter): Promise<Pokemon[]>;
-  countPokemons(): Promise<number>;
+  countPokemons(filter?: SearchFilter): Promise<number>;
 }

@@ -36,7 +36,7 @@ describe('A Pokemon Catalog', () => {
     expect(await pokemonCatalog.getPageOfPokemons(1, 2)).toStrictEqual([raichu, venusaur]);
   });
 
-  it('Gets the total amount of elements in a query', async () => {
+  it('Gets the total amount of elements in a query using a port mocked adapter', async () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
 
@@ -55,5 +55,17 @@ describe('A Pokemon Catalog', () => {
     mockedPokemonsRepository.findPokemons.calledWith(1, 1, filter).mockResolvedValue([raichu]);
 
     expect(await pokemonCatalog.getPageOfPokemons(1, 1, filter)).toStrictEqual([raichu]);
+  });
+
+  it('Gets the total amount of elements in a filtered query using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+    const filter: SearchFilter = {
+      type: 'aType',
+    };
+
+    mockedPokemonsRepository.countPokemons.calledWith(filter).mockResolvedValue(4);
+
+    expect(await pokemonCatalog.getNumberOfPokemons(filter)).toBe(4);
   });
 });

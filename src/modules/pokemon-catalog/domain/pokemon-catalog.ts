@@ -17,7 +17,7 @@ export class PokemonCatalog implements ForQueryingPokemons {
     return this.pokemonRepository.findPokemons(limit, skip, filter);
   }
 
-  async getNumberOfPokemons(): Promise<number> {
-    return this.pokemonRepository.countPokemons();
+  async getNumberOfPokemons(filter?: SearchFilter): Promise<number> {
+    return this.pokemonRepository.countPokemons(filter);
   }
 }

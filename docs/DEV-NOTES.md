@@ -200,5 +200,21 @@ This feature requires to modify the resource `GET /pokemons` adding the option t
 First we will modify the hexagon methods to accept that change.
 
 ```typescript
+it('Gets a page of pokemons filtered by type using a port mocked adapter', async () => {
+  const mockedPokemonsRepository = mock<ForGettingPokemons>();
+  const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+  const filter: SearchFilter = {
+    type: 'aType',
+  };
+
+  mockedPokemonsRepository.findPokemons.calledWith(1, 1, filter).mockResolvedValue([raichu]);
+
+  expect(await pokemonCatalog.getPageOfPokemons(1, 1, filter)).toStrictEqual([raichu]);
+});
+```
+
+But the filter should be used also to count the number of pokemons:
+
+```typescript
 
 ```
