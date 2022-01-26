@@ -2,7 +2,7 @@ import { Pokemon } from '../../modules/pokemon-catalog/domain/models';
 import { PokemonResponse } from '../../models';
 
 export class MockedPokemons {
-  static pikachuView(): PokemonResponse {
+  static pikachuResponse(): PokemonResponse {
     return {
       id: '025',
       name: 'Pikachu',
@@ -65,7 +65,7 @@ export class MockedPokemons {
     };
   }
 
-  static charizardView(): PokemonResponse {
+  static charizardResponse(): PokemonResponse {
     return {
       id: '006',
       name: 'Charizard',

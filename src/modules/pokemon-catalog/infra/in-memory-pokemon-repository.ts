@@ -6,9 +6,7 @@ import * as pokemons from './pokemons.json';
 
 export class InMemoryPokemonRepository implements ForGettingPokemons {
   async getPokemonById(id: string): Promise<Pokemon> {
-    const foundPokemons = pokemons
-      .filter((p) => p.id === id)
-      .map((p) => this.toPokemon(p));
+    const foundPokemons = pokemons.filter((p) => p.id === id).map((p) => this.toPokemon(p));
 
     if (foundPokemons.length === 0) {
       throw new PokemonNotFoundError(id);
@@ -18,9 +16,7 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
   }
 
   async getPokemonByName(name: string): Promise<Pokemon> {
-    const foundPokemons = pokemons
-      .filter((p) => p.name.toLowerCase() === name)
-      .map((p) => this.toPokemon(p));
+    const foundPokemons = pokemons.filter((p) => p.name.toLowerCase() === name).map((p) => this.toPokemon(p));
 
     if (foundPokemons.length === 0) {
       throw new PokemonNotFoundError(name);
@@ -61,5 +57,9 @@ export class InMemoryPokemonRepository implements ForGettingPokemons {
       maxHP: entity.maxHP,
       attacks: entity.attacks,
     };
+  }
+
+  async findPokemons(page: number, size: number): Promise<Pokemon[]> {
+    return Promise.resolve([]);
   }
 }

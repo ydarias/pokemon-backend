@@ -187,3 +187,7 @@ Up to this point we used a fake implementation (in-memory) as the pokemons repos
 - [x] Start a PostgreSQL instance with Docker.
 - [x] Create the TypeORM entity that maps to the DB.
 - [x] Fill the DB with data to complete e2e tests.
+
+This was a refactor that took some time, specially because the dump from the DB matches well with MongoDB but not so well with a relational DB. The good news are that we can use the tools from Nets.js and TypeORM to implement the pagination.
+
+The first step is to create the domain code, so we write a test and the code to leave the test in green.
