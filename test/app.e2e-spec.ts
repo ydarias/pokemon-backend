@@ -8,7 +8,7 @@ import { testDatasetSeed } from '../seeds/test-pokemons.seed';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
-  jest.setTimeout(30000);
+  jest.setTimeout(15000);
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
