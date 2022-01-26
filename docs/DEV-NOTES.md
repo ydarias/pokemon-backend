@@ -23,13 +23,13 @@ The instructions don't define user stories, so we will just write down the requi
 
 My first step will be to check the requirements, removing duplicated functionality and organizing (sorting) them to make the development process simpler.
 
-* Get a Pokemon by its ID.
-* Get a Pokemon by its name.
-* Query Pokemons paginated.
-* Query Pokemons by type.
-* Mark (or unmark) a Pokemon as favorite.
-* Query favorite Pokemons.
-* Get the types of Pokemons as a list.
+- [x] Get a Pokemon by its ID.
+- [x] Get a Pokemon by its name.
+- [x] Query Pokemons paginated.
+- [ ] Query Pokemons by type.
+- [ ] Mark (or unmark) a Pokemon as favorite.
+- [ ] Query favorite Pokemons.
+- [ ] Get the types of Pokemons as a list.
 
 ### Get a Pokemon by its ID
 
@@ -191,3 +191,80 @@ Up to this point we used a fake implementation (in-memory) as the pokemons repos
 This was a refactor that took some time, specially because the dump from the DB matches well with MongoDB but not so well with a relational DB. The good news are that we can use the tools from Nets.js and TypeORM to implement the pagination.
 
 The first step is to create the domain code, so we write a test and the code to leave the test in green.
+
+```typescript
+describe('A Pokemon Catalog', () => {
+  const raichu = MockedPokemons.raichu();
+  const venusaur = MockedPokemons.venusaur();
+
+  it('Gets a pokemon given its ID using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+
+    mockedPokemonsRepository.getPokemonById.calledWith('026').mockResolvedValue(raichu);
+
+    expect(await pokemonCatalog.getPokemonByItsID('026')).toStrictEqual(raichu);
+  });
+
+  it('Gets a pokemon given its name using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+
+    mockedPokemonsRepository.getPokemonByName.calledWith('venusaur').mockResolvedValue(venusaur);
+
+    expect(await pokemonCatalog.getPokemonByItsName('venusaur')).toStrictEqual(venusaur);
+  });
+
+  it('Gets a page of pokemons using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+
+    mockedPokemonsRepository.findPokemons.calledWith(1, 2).mockResolvedValue([raichu, venusaur]);
+
+    expect(await pokemonCatalog.getPageOfPokemons(1, 2)).toStrictEqual([raichu, venusaur]);
+  });
+});
+```
+
+And also the e2e test code. In this case we will use a snapshot because the query implemented by TypeORM (and the object recomposition) affects to the order of some internal properties, e.g. the sorting for weaknesses changes between the object to test against and the actual object.
+
+```typescript
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
+
+  jest.setTimeout(15000);
+
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+
+    await testDatasetSeed();
+  });
+
+  it('should support requesting a pokemon by its ID', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons/025').expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.pikachuResponse());
+  });
+
+  it('should support requesting a pokemon by its name', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons/name/charizard').expect(200);
+
+    expect(response.body).toStrictEqual(MockedPokemons.charizardResponse());
+  });
+
+  it('should support requesting a page of pokemons (default order is by ID)', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons?page=2&size=3').expect(200);
+
+    // Used snapshot after checking the data is valid, because the order of some inner collections changes with the
+    // DB query
+    expect(response.body).toMatchSnapshot();
+  });
+});
+```
+
+At this point we will get rid of `in-memory-pokemon-repository.ts` because it give no value anymore.
