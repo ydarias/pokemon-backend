@@ -44,4 +44,16 @@ describe('A Pokemon Catalog', () => {
 
     expect(await pokemonCatalog.getNumberOfPokemons()).toBe(4);
   });
+
+  it('Gets a page of pokemons filtered by type using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+    const filter: SearchFilter = {
+      type: 'aType',
+    };
+
+    mockedPokemonsRepository.findPokemons.calledWith(1, 1, filter).mockResolvedValue([raichu]);
+
+    expect(await pokemonCatalog.getPageOfPokemons(1, 1, filter)).toStrictEqual([raichu]);
+  });
 });

@@ -192,3 +192,13 @@ it('Gets the total amount of elements in a query', async () => {
 ```
 
 For an e2e test we just need to validate the data and update the snapshot with `--updateSnapshot` option.
+
+### Query Pokemons by type
+
+This feature requires to modify the resource `GET /pokemons` adding the option to specify a `type` query parameter.
+
+First we will modify the hexagon methods to accept that change.
+
+```typescript
+
+```
