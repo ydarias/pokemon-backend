@@ -15,7 +15,7 @@ export class DbPokemonRepository implements ForGettingPokemons {
   }
 
   async findPokemons(page: number, size: number): Promise<Pokemon[]> {
-    return Promise.resolve([]);
+    return (await this.pokemonRepository.find({ skip: (page - 1) * size, take: size })).map((e) => this.toPokemon(e));
   }
 
   private toPokemon(entity: PokemonEntity): Pokemon {

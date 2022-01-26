@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
 import { PokemonResponse } from './models';
 import { ForQueryingPokemons } from './modules/pokemon-catalog/domain/for-querying-pokemons';
 import { Pokemon } from './modules/pokemon-catalog/domain/models';
@@ -10,20 +10,19 @@ export class AppController {
     private readonly pokemonCatalog: ForQueryingPokemons,
   ) {}
 
+  @Get('pokemons')
+  async getPokemonPage(@Query('page') page = 1, @Query('size') size = 5): Promise<PokemonResponse[]> {
+    return (await this.pokemonCatalog.getPageOfPokemons(page, size)).map((p) => this.toPokemonResponse(p));
+  }
+
   @Get('pokemons/:id')
   async getPokemonById(@Param('id') id: string): Promise<PokemonResponse> {
-    return this.toPokemonResponse(
-      await this.pokemonCatalog.getPokemonByItsID(id),
-    );
+    return this.toPokemonResponse(await this.pokemonCatalog.getPokemonByItsID(id));
   }
 
   @Get('pokemons/name/:name')
-  async getPokemonByName(
-    @Param('name') name: string,
-  ): Promise<PokemonResponse> {
-    return this.toPokemonResponse(
-      await this.pokemonCatalog.getPokemonByItsName(name),
-    );
+  async getPokemonByName(@Param('name') name: string): Promise<PokemonResponse> {
+    return this.toPokemonResponse(await this.pokemonCatalog.getPokemonByItsName(name));
   }
 
   private toPokemonResponse(pokemon: Pokemon): PokemonResponse {

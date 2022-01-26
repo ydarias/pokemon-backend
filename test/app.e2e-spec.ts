@@ -32,4 +32,12 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toStrictEqual(MockedPokemons.charizardResponse());
   });
+
+  it('should support requesting a page of pokemons (default order is by ID)', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons?page=2&size=3').expect(200);
+
+    // Used snapshot after checking the data is valid, because the order of some inner collections changes with the
+    // DB query
+    expect(response.body).toMatchSnapshot();
+  });
 });

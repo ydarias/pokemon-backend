@@ -128,6 +128,142 @@ export class MockedPokemons {
     };
   }
 
+  static charmanderResponse(): PokemonResponse {
+    return {
+      id: '004',
+      name: 'Charmander',
+      classification: 'Lizard Pokémon',
+      types: ['Fire'],
+      resistant: ['Fire', 'Grass', 'Ice', 'Bug', 'Steel', 'Fairy'],
+      weaknesses: ['Water', 'Ground', 'Rock'],
+      weight: {
+        minimum: '7.44kg',
+        maximum: '9.56kg',
+      },
+      height: {
+        minimum: '0.53m',
+        maximum: '0.68m',
+      },
+      fleeRate: 0.1,
+      evolutionRequirements: {
+        amount: 25,
+        name: 'Charmander candies',
+      },
+      evolutions: [
+        {
+          id: '005',
+          name: 'Charmeleon',
+        },
+        {
+          id: '006',
+          name: 'Charizard',
+        },
+      ],
+      maxCP: 841,
+      maxHP: 955,
+      attacks: {
+        fast: [
+          {
+            name: 'Ember',
+            type: 'Fire',
+            damage: 10,
+          },
+          {
+            name: 'Scratch',
+            type: 'Normal',
+            damage: 6,
+          },
+        ],
+        special: [
+          {
+            name: 'Flame Burst',
+            type: 'Fire',
+            damage: 30,
+          },
+          {
+            name: 'Flame Charge',
+            type: 'Fire',
+            damage: 25,
+          },
+          {
+            name: 'Flamethrower',
+            type: 'Fire',
+            damage: 55,
+          },
+        ],
+      },
+    };
+  }
+
+  static charmaleonResponse(): PokemonResponse {
+    return {
+      id: '005',
+      name: 'Charmeleon',
+      classification: 'Flame Pokémon',
+      types: ['Fire'],
+      resistant: ['Fire', 'Grass', 'Ice', 'Bug', 'Steel', 'Fairy'],
+      weaknesses: ['Water', 'Ground', 'Rock'],
+      weight: {
+        minimum: '16.63kg',
+        maximum: '21.38kg',
+      },
+      height: {
+        minimum: '0.96m',
+        maximum: '1.24m',
+      },
+      fleeRate: 0.07,
+      'Previous evolution(s)': [
+        {
+          id: '004',
+          name: 'Charmander',
+        },
+      ],
+      evolutionRequirements: {
+        amount: 100,
+        name: 'Charmander candies',
+      },
+      evolutions: [
+        {
+          id: '006',
+          name: 'Charizard',
+        },
+      ],
+      maxCP: 1411,
+      maxHP: 1557,
+      attacks: {
+        fast: [
+          {
+            name: 'Ember',
+            type: 'Fire',
+            damage: 10,
+          },
+          {
+            name: 'Scratch',
+            type: 'Normal',
+            damage: 6,
+          },
+        ],
+        special: [
+          {
+            name: 'Fire Punch',
+            type: 'Fire',
+            damage: 40,
+          },
+          {
+            name: 'Flame Burst',
+            type: 'Fire',
+            damage: 30,
+          },
+          {
+            name: 'Flamethrower',
+            type: 'Fire',
+            damage: 55,
+          },
+        ],
+      },
+    };
+  }
+
   static raichu(): Pokemon {
     return {
       id: '026',

@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppController (e2e) should support requesting a page of pokemons (default order is by ID) 1`] = `
+Array [
+  Object {
+    "attacks": Object {
+      "fast": Array [
+        Object {
+          "damage": 10,
+          "name": "Ember",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 6,
+          "name": "Scratch",
+          "type": "Normal",
+        },
+      ],
+      "special": Array [
+        Object {
+          "damage": 30,
+          "name": "Flame Burst",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 25,
+          "name": "Flame Charge",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 55,
+          "name": "Flamethrower",
+          "type": "Fire",
+        },
+      ],
+    },
+    "classification": "Lizard Pokémon",
+    "evolutionRequirements": Object {
+      "amount": 25,
+      "name": "Charmander candies",
+    },
+    "evolutions": Array [
+      Object {
+        "id": "006",
+        "name": "Charizard",
+      },
+      Object {
+        "id": "005",
+        "name": "Charmeleon",
+      },
+    ],
+    "fleeRate": 0.1,
+    "height": Object {
+      "maximum": "0.68m",
+      "minimum": "0.53m",
+    },
+    "id": "004",
+    "maxCP": 841,
+    "maxHP": 955,
+    "name": "Charmander",
+    "resistant": Array [
+      "Fairy",
+      "Steel",
+      "Bug",
+      "Ice",
+      "Grass",
+      "Fire",
+    ],
+    "types": Array [
+      "Fire",
+    ],
+    "weaknesses": Array [
+      "Water",
+      "Ground",
+      "Rock",
+    ],
+    "weight": Object {
+      "maximum": "9.56kg",
+      "minimum": "7.44kg",
+    },
+  },
+  Object {
+    "Previous evolution(s)": Array [
+      Object {
+        "id": "004",
+        "name": "Charmander",
+      },
+    ],
+    "attacks": Object {
+      "fast": Array [
+        Object {
+          "damage": 10,
+          "name": "Ember",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 6,
+          "name": "Scratch",
+          "type": "Normal",
+        },
+      ],
+      "special": Array [
+        Object {
+          "damage": 40,
+          "name": "Fire Punch",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 30,
+          "name": "Flame Burst",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 55,
+          "name": "Flamethrower",
+          "type": "Fire",
+        },
+      ],
+    },
+    "classification": "Flame Pokémon",
+    "evolutionRequirements": Object {
+      "amount": 100,
+      "name": "Charmander candies",
+    },
+    "evolutions": Array [
+      Object {
+        "id": "006",
+        "name": "Charizard",
+      },
+    ],
+    "fleeRate": 0.07,
+    "height": Object {
+      "maximum": "1.24m",
+      "minimum": "0.96m",
+    },
+    "id": "005",
+    "maxCP": 1411,
+    "maxHP": 1557,
+    "name": "Charmeleon",
+    "resistant": Array [
+      "Fairy",
+      "Steel",
+      "Bug",
+      "Ice",
+      "Grass",
+      "Fire",
+    ],
+    "types": Array [
+      "Fire",
+    ],
+    "weaknesses": Array [
+      "Water",
+      "Ground",
+      "Rock",
+    ],
+    "weight": Object {
+      "maximum": "21.38kg",
+      "minimum": "16.63kg",
+    },
+  },
+  Object {
+    "Previous evolution(s)": Array [
+      Object {
+        "id": "005",
+        "name": "Charmeleon",
+      },
+      Object {
+        "id": "004",
+        "name": "Charmander",
+      },
+    ],
+    "attacks": Object {
+      "fast": Array [
+        Object {
+          "damage": 10,
+          "name": "Ember",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 9,
+          "name": "Wing Attack",
+          "type": "Flying",
+        },
+      ],
+      "special": Array [
+        Object {
+          "damage": 35,
+          "name": "Dragon Claw",
+          "type": "Dragon",
+        },
+        Object {
+          "damage": 100,
+          "name": "Fire Blast",
+          "type": "Fire",
+        },
+        Object {
+          "damage": 55,
+          "name": "Flamethrower",
+          "type": "Fire",
+        },
+      ],
+    },
+    "classification": "Flame Pokémon",
+    "fleeRate": 0.05,
+    "height": Object {
+      "maximum": "1.91m",
+      "minimum": "1.49m",
+    },
+    "id": "006",
+    "maxCP": 2413,
+    "maxHP": 2602,
+    "name": "Charizard",
+    "resistant": Array [
+      "Fairy",
+      "Steel",
+      "Bug",
+      "Fighting",
+      "Grass",
+      "Fire",
+    ],
+    "types": Array [
+      "Fire",
+      "Flying",
+    ],
+    "weaknesses": Array [
+      "Water",
+      "Electric",
+      "Rock",
+    ],
+    "weight": Object {
+      "maximum": "101.81kg",
+      "minimum": "79.19kg",
+    },
+  },
+]
+`;
