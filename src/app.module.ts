@@ -22,7 +22,7 @@ import { Repository } from 'typeorm';
       username: 'username',
       password: 'password',
       database: 'default_database',
-      keepConnectionAlive: true,
+      // keepConnectionAlive: true,
       synchronize: true,
       dropSchema: true,
       entities: [

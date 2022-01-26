@@ -8,7 +8,7 @@ import { testDatasetSeed } from '../seeds/test-pokemons.seed';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
-  jest.setTimeout(10000);
+  jest.setTimeout(30000);
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -22,17 +22,13 @@ describe('AppController (e2e)', () => {
   });
 
   it('should support requesting a pokemon by its ID', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/pokemons/025')
-      .expect(200);
+    const response = await request(app.getHttpServer()).get('/pokemons/025').expect(200);
 
     expect(response.body).toStrictEqual(MockedPokemons.pikachuView());
   });
 
   it('should support requesting a pokemon by its name', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/pokemons/name/charizard')
-      .expect(200);
+    const response = await request(app.getHttpServer()).get('/pokemons/name/charizard').expect(200);
 
     expect(response.body).toStrictEqual(MockedPokemons.charizardView());
   });

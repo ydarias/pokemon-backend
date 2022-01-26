@@ -1,4 +1,4 @@
-import { getConnection } from 'typeorm';
+import { EntityManager, getConnection } from 'typeorm';
 import {
   AttackEntity,
   EvolutionEntity,
@@ -10,6 +10,75 @@ import {
 
 import * as pokemons from './pokemons.json';
 
+async function persistTypesInCollection(types: any, entityManager: EntityManager): Promise<TypeEntity[]> {
+  return Promise.all(
+    types.map(async (t) => {
+      const type = new TypeEntity();
+      type.name = t;
+
+      return await entityManager.save(type);
+    }),
+  );
+}
+
+async function persistAttacksInCollection(attacks: any, entityManager: EntityManager): Promise<AttackEntity[]> {
+  return Promise.all(
+    attacks.map(async (a) => {
+      const attack = new AttackEntity();
+      attack.type = a.type;
+      attack.name = a.name;
+      attack.damage = a.damage;
+
+      return await entityManager.save(attack);
+    }),
+  );
+}
+
+async function persistEvolutionsInCollection(
+  evolutions: any,
+  entityManager: EntityManager,
+): Promise<EvolutionEntity[]> {
+  if (evolutions) {
+    return Promise.all(
+      evolutions.map(async (e) => {
+        const evolution = new EvolutionEntity();
+        evolution.id = e.id.toString().padStart(3, '0');
+        evolution.name = e.name;
+
+        return await entityManager.save(evolution);
+      }),
+    );
+  }
+
+  return [];
+}
+
+function parseWeightEntity(p) {
+  const weightEntity = new MeasurementEntity();
+  weightEntity.maximum = Number.parseFloat(p.weight.maximum.replace('kg', ''));
+  weightEntity.minimum = Number.parseFloat(p.weight.minimum.replace('kg', ''));
+  weightEntity.unit = 'kg';
+
+  return weightEntity;
+}
+
+function parseHeightEntity(p) {
+  const heightEntity = new MeasurementEntity();
+  heightEntity.maximum = Number.parseFloat(p.height.maximum.replace('m', ''));
+  heightEntity.minimum = Number.parseFloat(p.height.minimum.replace('m', ''));
+  heightEntity.unit = 'm';
+
+  return heightEntity;
+}
+
+function parseEvolutionRequirementsEntity(p) {
+  const evolutionRequirementsEntity = new EvolutionRequirementsEntity();
+  evolutionRequirementsEntity.name = p.evolutionRequirements.name;
+  evolutionRequirementsEntity.amount = p.evolutionRequirements.amount;
+
+  return evolutionRequirementsEntity;
+}
+
 export const testDatasetSeed = async () => {
   const connection = await getConnection();
   const entityManager = connection.createEntityManager();
@@ -17,80 +86,23 @@ export const testDatasetSeed = async () => {
   for (let i = 0; i < pokemons.length; i++) {
     const p = pokemons[i];
 
-    const typeEntities: TypeEntity[] = [];
-    for (let j = 0; j < p.types.length; j++) {
-      const t = p.types[j];
-
-      const type = new TypeEntity();
-      type.name = t;
-      typeEntities.push(await entityManager.save(type));
-    }
-
-    const resistantEntities: TypeEntity[] = [];
-    for (let j = 0; j < p.resistant.length; j++) {
-      const t = p.resistant[j];
-
-      const type = new TypeEntity();
-      type.name = t;
-      resistantEntities.push(await entityManager.save(type));
-    }
-
-    const weaknessesEntities: TypeEntity[] = [];
-    for (let j = 0; j < p.weaknesses.length; j++) {
-      const t = p.weaknesses[j];
-
-      const type = new TypeEntity();
-      type.name = t;
-      weaknessesEntities.push(await entityManager.save(type));
-    }
-
-    const fastAttackEntities: AttackEntity[] = [];
-    for (let j = 0; j < p.attacks.fast.length; j++) {
-      const a = p.attacks.fast[j];
-
-      const attackEntity = new AttackEntity();
-      attackEntity.type = a.type;
-      attackEntity.name = a.name;
-      attackEntity.damage = a.damage;
-      fastAttackEntities.push(await entityManager.save(attackEntity));
-    }
-
-    const specialAttackEntities: AttackEntity[] = [];
-    for (let j = 0; j < p.attacks.special.length; j++) {
-      const a = p.attacks.special[j];
-
-      const attackEntity = new AttackEntity();
-      attackEntity.type = a.type;
-      attackEntity.name = a.name;
-      attackEntity.damage = a.damage;
-      specialAttackEntities.push(await entityManager.save(attackEntity));
-    }
-
-    const evolutionsEntities: EvolutionEntity[] = [];
-    for (let j = 0; p.evolutions && j < p.evolutions.length; j++) {
-      const e = p.evolutions[j];
-
-      const evolutionEntity = new EvolutionEntity();
-      evolutionEntity.id = e.id.toString().padStart(3, '0');
-      evolutionEntity.name = e.name;
-      evolutionsEntities.push(await entityManager.save(evolutionEntity));
-    }
-
-    const previousEvolutionsEntities: EvolutionEntity[] = [];
-    for (
-      let j = 0;
-      p['Previous evolution(s)'] && j < p['Previous evolution(s)'].length;
-      j++
-    ) {
-      const e = p['Previous evolution(s)'][j];
-
-      const evolutionEntity = new EvolutionEntity();
-      evolutionEntity.id = e.id.toString().padStart(3, '0');
-      evolutionEntity.name = e.name;
-      previousEvolutionsEntities.push(
-        await entityManager.save(evolutionEntity),
-      );
-    }
+    const [
+      typeEntities,
+      resistantEntities,
+      weaknessesEntities,
+      fastAttackEntities,
+      specialAttackEntities,
+      evolutionsEntities,
+      previousEvolutionsEntities,
+    ] = await Promise.all([
+      persistTypesInCollection(p.types, entityManager),
+      persistTypesInCollection(p.resistant, entityManager),
+      persistTypesInCollection(p.weaknesses, entityManager),
+      persistAttacksInCollection(p.attacks.fast, entityManager),
+      persistAttacksInCollection(p.attacks.special, entityManager),
+      persistEvolutionsInCollection(p.evolutions, entityManager),
+      persistEvolutionsInCollection(p['Previous evolution(s)'], entityManager),
+    ]);
 
     const pokemonEntity = new PokemonEntity();
     pokemonEntity.id = p.id;
@@ -107,30 +119,11 @@ export const testDatasetSeed = async () => {
     pokemonEntity.specialAttacks = specialAttackEntities;
     pokemonEntity.evolutions = evolutionsEntities;
     pokemonEntity.previousEvolutions = previousEvolutionsEntities;
-
-    const weightEntity = new MeasurementEntity();
-    weightEntity.maximum = Number.parseFloat(
-      p.weight.maximum.replace('kg', ''),
-    );
-    weightEntity.minimum = Number.parseFloat(
-      p.weight.minimum.replace('kg', ''),
-    );
-    weightEntity.unit = 'kg';
-    pokemonEntity.weight = await entityManager.save(weightEntity);
-
-    const heightEntity = new MeasurementEntity();
-    heightEntity.maximum = Number.parseFloat(p.height.maximum.replace('m', ''));
-    heightEntity.minimum = Number.parseFloat(p.height.minimum.replace('m', ''));
-    heightEntity.unit = 'm';
-    pokemonEntity.height = await entityManager.save(heightEntity);
+    pokemonEntity.weight = await entityManager.save(parseWeightEntity(p));
+    pokemonEntity.height = await entityManager.save(parseHeightEntity(p));
 
     if (p.evolutionRequirements) {
-      const evolutionRequirementsEntity = new EvolutionRequirementsEntity();
-      evolutionRequirementsEntity.name = p.evolutionRequirements.name;
-      evolutionRequirementsEntity.amount = p.evolutionRequirements.amount;
-      pokemonEntity.evolutionRequirements = await entityManager.save(
-        evolutionRequirementsEntity,
-      );
+      pokemonEntity.evolutionRequirements = await entityManager.save(parseEvolutionRequirementsEntity(p));
     }
 
     await entityManager.save(pokemonEntity);

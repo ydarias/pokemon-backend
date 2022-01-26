@@ -5,8 +5,16 @@ export interface Pokemon {
   types: string[];
   resistant: string[];
   weaknesses: string[];
-  weight: Measurement;
-  height: Measurement;
+  weight: {
+    maximum: number;
+    minimum: number;
+    unit: string;
+  };
+  height: {
+    maximum: number;
+    minimum: number;
+    unit: string;
+  };
   fleeRate: number;
   evolutionRequirements?: {
     amount: number;
@@ -23,19 +31,15 @@ export interface Pokemon {
   maxCP: number;
   maxHP: number;
   attacks: {
-    fast: Attack[];
-    special: Attack[];
+    fast: {
+      name: string;
+      type: string;
+      damage: number;
+    }[];
+    special: {
+      name: string;
+      type: string;
+      damage: number;
+    }[];
   };
-}
-
-export interface Measurement {
-  maximum: number;
-  minimum: number;
-  unit: string;
-}
-
-export interface Attack {
-  name: string;
-  type: string;
-  damage: number;
 }
