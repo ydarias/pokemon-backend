@@ -39,3 +39,12 @@ export interface AttackResponse {
   type: string;
   damage: number;
 }
+
+export interface CollectionOf<T> {
+  items: T[];
+  meta: {
+    skip: number;
+    limit: number;
+    count: number;
+  };
+}

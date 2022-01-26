@@ -10,28 +10,28 @@ import {
 
 import * as pokemons from './pokemons.json';
 
-async function persistTypesInCollection(types: any, entityManager: EntityManager): Promise<TypeEntity[]> {
-  return Promise.all(
-    types.map(async (t) => {
-      const type = new TypeEntity();
-      type.name = t;
+async function persistTypesInCollection(types: string[], entityManager: EntityManager): Promise<TypeEntity[]> {
+  const entities: TypeEntity[] = [];
+  for (let i = 0; i < types.length; i++) {
+    const type = new TypeEntity();
+    type.name = types[i];
 
-      return await entityManager.save(type);
-    }),
-  );
+    entities.push(await entityManager.save(type));
+  }
+  return entities;
 }
 
 async function persistAttacksInCollection(attacks: any, entityManager: EntityManager): Promise<AttackEntity[]> {
-  return Promise.all(
-    attacks.map(async (a) => {
-      const attack = new AttackEntity();
-      attack.type = a.type;
-      attack.name = a.name;
-      attack.damage = a.damage;
+  const entities: AttackEntity[] = [];
+  for (let i = 0; i < attacks.length; i++) {
+    const attack = new AttackEntity();
+    attack.type = attacks[i].type;
+    attack.name = attacks[i].name;
+    attack.damage = attacks[i].damage;
 
-      return await entityManager.save(attack);
-    }),
-  );
+    entities.push(await entityManager.save(attack));
+  }
+  return entities;
 }
 
 async function persistEvolutionsInCollection(
@@ -39,15 +39,15 @@ async function persistEvolutionsInCollection(
   entityManager: EntityManager,
 ): Promise<EvolutionEntity[]> {
   if (evolutions) {
-    return Promise.all(
-      evolutions.map(async (e) => {
-        const evolution = new EvolutionEntity();
-        evolution.id = e.id.toString().padStart(3, '0');
-        evolution.name = e.name;
+    const entities: EvolutionEntity[] = [];
+    for (let i = 0; i < evolutions.length; i++) {
+      const evolution = new EvolutionEntity();
+      evolution.id = evolutions[i].id.toString().padStart(3, '0');
+      evolution.name = evolutions[i].name;
 
-        return await entityManager.save(evolution);
-      }),
-    );
+      entities.push(await entityManager.save(evolution));
+    }
+    return entities;
   }
 
   return [];
@@ -86,39 +86,21 @@ export const testDatasetSeed = async () => {
   for (let i = 0; i < pokemons.length; i++) {
     const p = pokemons[i];
 
-    const [
-      typeEntities,
-      resistantEntities,
-      weaknessesEntities,
-      fastAttackEntities,
-      specialAttackEntities,
-      evolutionsEntities,
-      previousEvolutionsEntities,
-    ] = await Promise.all([
-      persistTypesInCollection(p.types, entityManager),
-      persistTypesInCollection(p.resistant, entityManager),
-      persistTypesInCollection(p.weaknesses, entityManager),
-      persistAttacksInCollection(p.attacks.fast, entityManager),
-      persistAttacksInCollection(p.attacks.special, entityManager),
-      persistEvolutionsInCollection(p.evolutions, entityManager),
-      persistEvolutionsInCollection(p['Previous evolution(s)'], entityManager),
-    ]);
-
     const pokemonEntity = new PokemonEntity();
     pokemonEntity.id = p.id;
     pokemonEntity.name = p.name;
     pokemonEntity.nameForSearch = p.name.toLowerCase();
     pokemonEntity.classification = p.classification;
-    pokemonEntity.types = typeEntities;
-    pokemonEntity.resistant = resistantEntities;
-    pokemonEntity.weaknesses = weaknessesEntities;
+    pokemonEntity.types = await persistTypesInCollection(p.types, entityManager);
+    pokemonEntity.resistant = await persistTypesInCollection(p.resistant, entityManager);
+    pokemonEntity.weaknesses = await persistTypesInCollection(p.weaknesses, entityManager);
     pokemonEntity.fleeRate = p.fleeRate;
     pokemonEntity.maxCP = p.maxCP;
     pokemonEntity.maxHP = p.maxHP;
-    pokemonEntity.fastAttacks = fastAttackEntities;
-    pokemonEntity.specialAttacks = specialAttackEntities;
-    pokemonEntity.evolutions = evolutionsEntities;
-    pokemonEntity.previousEvolutions = previousEvolutionsEntities;
+    pokemonEntity.fastAttacks = await persistAttacksInCollection(p.attacks.fast, entityManager);
+    pokemonEntity.specialAttacks = await persistAttacksInCollection(p.attacks.special, entityManager);
+    pokemonEntity.evolutions = await persistEvolutionsInCollection(p.evolutions, entityManager);
+    pokemonEntity.previousEvolutions = await persistEvolutionsInCollection(p['Previous evolution(s)'], entityManager);
     pokemonEntity.weight = await entityManager.save(parseWeightEntity(p));
     pokemonEntity.height = await entityManager.save(parseHeightEntity(p));
 

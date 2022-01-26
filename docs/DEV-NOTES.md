@@ -179,3 +179,16 @@ As in real life, you can check with the frontend team to decide if the endpoints
 * The response is an object `{ items: ..., meta: ... }` where meta contains the information of `skip`, `limit`, and `count`.
 
 Given this requirements, the hexagon requires a new feature that returns the count of elements given a filter. As always we start with a test and continue implementing the code.
+
+```typescript
+it('Gets the total amount of elements in a query', async () => {
+  const mockedPokemonsRepository = mock<ForGettingPokemons>();
+  const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+
+  mockedPokemonsRepository.countPokemons.calledWith().mockResolvedValue(4);
+
+  expect(await pokemonCatalog.getNumberOfPokemons()).toBe(4);
+});
+```
+
+For an e2e test we just need to validate the data and update the snapshot with `--updateSnapshot` option.

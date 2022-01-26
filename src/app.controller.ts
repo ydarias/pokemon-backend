@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
-import { PokemonResponse } from './models';
+import { CollectionOf, PokemonResponse } from './models';
 import { ForQueryingPokemons } from './modules/pokemon-catalog/domain/for-querying-pokemons';
 import { Pokemon } from './modules/pokemon-catalog/domain/models';
 
@@ -11,8 +11,18 @@ export class AppController {
   ) {}
 
   @Get('pokemons')
-  async getPokemonPage(@Query('page') page = 1, @Query('size') size = 5): Promise<PokemonResponse[]> {
-    return (await this.pokemonCatalog.getPageOfPokemons(page, size)).map((p) => this.toPokemonResponse(p));
+  async getPokemonPage(@Query('limit') limit = 5, @Query('skip') skip = 0): Promise<CollectionOf<PokemonResponse>> {
+    const items = (await this.pokemonCatalog.getPageOfPokemons(limit, skip)).map((p) => this.toPokemonResponse(p));
+    const count = await this.pokemonCatalog.getNumberOfPokemons();
+    return {
+      items,
+      meta: {
+        // WTF: without the parsing it return a string as the JSON value
+        limit: Number.parseInt(`${limit}`),
+        skip: Number.parseInt(`${skip}`),
+        count,
+      },
+    };
   }
 
   @Get('pokemons/:id')

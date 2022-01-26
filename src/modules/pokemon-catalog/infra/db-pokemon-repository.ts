@@ -14,12 +14,14 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return this.toPokemon(await this.pokemonRepository.findOne({ nameForSearch: name }));
   }
 
-  async findPokemons(page: number, size: number): Promise<Pokemon[]> {
-    return (await this.pokemonRepository.find({ skip: (page - 1) * size, take: size })).map((e) => this.toPokemon(e));
+  async findPokemons(limit: number, skip: number): Promise<Pokemon[]> {
+    return (await this.pokemonRepository.find({ skip, take: limit, order: { id: 'ASC' } })).map((e) =>
+      this.toPokemon(e),
+    );
   }
 
   async countPokemons(): Promise<number> {
-    throw new Error('Method not implemented.');
+    return this.pokemonRepository.count({});
   }
 
   private toPokemon(entity: PokemonEntity): Pokemon {
