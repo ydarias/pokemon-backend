@@ -18,6 +18,10 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return (await this.pokemonRepository.find({ skip: (page - 1) * size, take: size })).map((e) => this.toPokemon(e));
   }
 
+  async countPokemons(): Promise<number> {
+    throw new Error('Method not implemented.');
+  }
+
   private toPokemon(entity: PokemonEntity): Pokemon {
     const pokemon: Pokemon = {
       id: entity.id,

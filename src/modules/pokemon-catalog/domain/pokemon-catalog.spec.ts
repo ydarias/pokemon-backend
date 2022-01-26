@@ -35,4 +35,13 @@ describe('A Pokemon Catalog', () => {
 
     expect(await pokemonCatalog.getPageOfPokemons(1, 2)).toStrictEqual([raichu, venusaur]);
   });
+
+  it('Gets the total amount of elements in a query', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+
+    mockedPokemonsRepository.countPokemons.calledWith().mockResolvedValue(4);
+
+    expect(await pokemonCatalog.getNumberOfPokemons()).toBe(4);
+  });
 });
