@@ -251,6 +251,8 @@ At this point we start working with a new entity `User` and that opens the gates
 
 ![Introduction of the concept of users and its module](images/introducing-users-concept.png)
 
+After the hexagon implementation is complete, we have the connect with the controller and actual repository implementation, which could require extra endpoints to validate the right behaviour like getting the user preferences. That forces us to add more functions to the `ForManagingUserPreferences` port but it should not take too much time.
+
 ## Things to improve
 
 * The expects using the snapshots are not good as long as the ordering of some subdocuments from the JSON can change depending on the DB and loading process. Creating a custom matcher is time consuming for a code challenge.

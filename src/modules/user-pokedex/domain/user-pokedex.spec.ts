@@ -14,6 +14,24 @@ export const aPreferencesLike: MatcherCreator<UserPreferences> = (expectedValue)
   }, 'Compares two instances of UserPreferences');
 
 describe('A Pokedex', () => {
+  it('should allow to get the user preferences using a mocked adapter', async () => {
+    const mockedPreferencesRepository = mock<ForStoringAndGettingUserPreferences>();
+    const pokedex: ForManagingUserPreferences = new UserPokedex(mockedPreferencesRepository);
+
+    const userID = 'the-user-id';
+
+    const thePreferences: UserPreferences = {
+      userID,
+      favoritePokemons: ['033'],
+    };
+
+    mockedPreferencesRepository.findUserPreferences.calledWith(userID).mockResolvedValue(thePreferences);
+
+    const result = await pokedex.getPreferences(userID);
+
+    expect(result).toStrictEqual(thePreferences);
+  });
+
   it('should allow a user to mark a pokemon as favorite using a mocked adapter', async () => {
     const mockedPreferencesRepository = mock<ForStoringAndGettingUserPreferences>();
     const pokedex: ForManagingUserPreferences = new UserPokedex(mockedPreferencesRepository);

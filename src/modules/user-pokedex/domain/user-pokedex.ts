@@ -6,6 +6,10 @@ import * as _ from 'lodash';
 export class UserPokedex implements ForManagingUserPreferences {
   constructor(private readonly preferencesRepository: ForStoringAndGettingUserPreferences) {}
 
+  async getPreferences(userID: string): Promise<UserPreferences> {
+    return this.preferencesRepository.findUserPreferences(userID);
+  }
+
   async markFavoritePokemon(userId: string, pokemon: string): Promise<UserPreferences> {
     const preferences = await this.preferencesRepository.findUserPreferences(userId);
     preferences.favoritePokemons = _.union(preferences.favoritePokemons, [pokemon]);
