@@ -241,4 +241,12 @@ it('should support requesting a page of pokemons filtered by type (default order
 
 One problem at this point is how to store the types and query them to make it as performant as possible, but keeping the implementation time as short as possible.
 
-![Pokemon types column as an array of strings](./images/pokemons-types-as-array.png)
+![Pokemon types column as an array of strings](images/pokemons-types-as-array.png)
+
+Having a separate table for `Types` and storing the pokemon's types as an array at the same table is a good balance between performance and simplicity.
+
+### Mark (or unmark) a Pokemon as favorite
+
+At this point we start working with a new entity `User` and that opens the gates to hundreds of different solutions. The idea here is to create a second hexagon that handles all the logic related to a user.
+
+![Introduction of the concept of users and its module](images/introducing-users-concept.png)
