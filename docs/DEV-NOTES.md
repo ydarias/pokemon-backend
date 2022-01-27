@@ -27,7 +27,7 @@ My first step will be to check the requirements, removing duplicated functionali
 - [x] Get a Pokemon by its name.
 - [x] Query Pokemons paginated.
 - [x] Query Pokemons by type.
-- [ ] Mark (or unmark) a Pokemon as favorite.
+- [x] Mark (or unmark) a Pokemon as favorite.
 - [ ] Query favorite Pokemons.
 - [ ] Get the types of Pokemons as a list.
 
