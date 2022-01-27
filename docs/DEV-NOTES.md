@@ -250,3 +250,7 @@ Having a separate table for `Types` and storing the pokemon's types as an array 
 At this point we start working with a new entity `User` and that opens the gates to hundreds of different solutions. The idea here is to create a second hexagon that handles all the logic related to a user.
 
 ![Introduction of the concept of users and its module](images/introducing-users-concept.png)
+
+## Things to improve
+
+* The expects using the snapshots are not good as long as the ordering of some subdocuments from the JSON can change depending on the DB and loading process. Creating a custom matcher is time consuming for a code challenge.

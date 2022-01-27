@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { MockedPokemons } from '../src/utils/tests/pokemons';
-import { testDatasetSeed } from '../seeds/test-pokemons.seed';
+import { loadPokemonsData } from '../seeds/load-pokemons';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -18,7 +18,7 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
-    await testDatasetSeed();
+    await loadPokemonsData();
   });
 
   it('should support requesting a pokemon by its ID', async () => {

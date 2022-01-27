@@ -79,7 +79,7 @@ function parseEvolutionRequirementsEntity(p) {
   return evolutionRequirementsEntity;
 }
 
-export const testDatasetSeed = async () => {
+export const loadPokemonsData = async () => {
   const connection = await getConnection();
   const entityManager = connection.createEntityManager();
 
