@@ -42,4 +42,33 @@ describe('A Pokedex', () => {
       aPreferencesLike(updatedPreferences),
     );
   });
+
+  it('should allow a user to unmark a pokemon as favorite using a mocked adapter', async () => {
+    const mockedPreferencesRepository = mock<ForStoringAndGettingUserPreferences>();
+    const pokedex: ForManagingUserPreferences = new UserPokedex(mockedPreferencesRepository);
+
+    const userID = 'the-user-id';
+
+    const originalPreferences: UserPreferences = {
+      userID,
+      favoritePokemons: ['001', '002', '003'],
+    };
+
+    const updatedPreferences: UserPreferences = {
+      userID,
+      favoritePokemons: ['001', '003'],
+    };
+
+    mockedPreferencesRepository.findUserPreferences.calledWith(userID).mockResolvedValue(originalPreferences);
+    mockedPreferencesRepository.updateUserPreferences
+      .calledWith(aPreferencesLike(updatedPreferences))
+      .mockResolvedValue(updatedPreferences);
+
+    const result = await pokedex.unmarkFavoritePokemon(userID, '002');
+
+    expect(result).toStrictEqual(updatedPreferences);
+    expect(mockedPreferencesRepository.updateUserPreferences).toHaveBeenCalledWith(
+      aPreferencesLike(updatedPreferences),
+    );
+  });
 });

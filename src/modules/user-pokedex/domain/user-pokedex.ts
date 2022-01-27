@@ -12,4 +12,11 @@ export class UserPokedex implements ForManagingUserPreferences {
 
     return this.preferencesRepository.updateUserPreferences(preferences);
   }
+
+  async unmarkFavoritePokemon(userID: string, pokemon: string): Promise<UserPreferences> {
+    const preferences = await this.preferencesRepository.findUserPreferences(userID);
+    preferences.favoritePokemons = _.difference(preferences.favoritePokemons, [pokemon]);
+
+    return this.preferencesRepository.updateUserPreferences(preferences);
+  }
 }
