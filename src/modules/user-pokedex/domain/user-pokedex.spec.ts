@@ -1,30 +1,9 @@
 import { Matcher, MatcherCreator, mock } from 'jest-mock-extended';
 import * as _ from 'lodash';
-
-export interface UserPreferences {
-  userID: string;
-  favoritePokemons: string[];
-}
-
-interface ForStoringAndGettingUserPreferences {
-  findUserPreferences(userId: string): Promise<UserPreferences>;
-  updateUserPreferences(preferences: UserPreferences): Promise<UserPreferences>;
-}
-
-interface ForManagingUserPreferences {
-  markFavoritePokemon(userId: string, pokemon: string): Promise<UserPreferences>;
-}
-
-class UserPokedex implements ForManagingUserPreferences {
-  constructor(private readonly preferencesRepository: ForStoringAndGettingUserPreferences) {}
-
-  async markFavoritePokemon(userId: string, pokemon: string): Promise<UserPreferences> {
-    const preferences = await this.preferencesRepository.findUserPreferences(userId);
-    preferences.favoritePokemons = _.union(preferences.favoritePokemons, [pokemon]);
-
-    return this.preferencesRepository.updateUserPreferences(preferences);
-  }
-}
+import { UserPreferences } from './user-preferences.model';
+import { ForStoringAndGettingUserPreferences } from './for-storing-getting-user-preferences';
+import { ForManagingUserPreferences } from './for-managing-user-preferences';
+import { UserPokedex } from './user-pokedex';
 
 export const aPreferencesLike: MatcherCreator<UserPreferences> = (expectedValue) =>
   new Matcher((actualValue) => {
