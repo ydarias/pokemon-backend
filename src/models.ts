@@ -48,3 +48,13 @@ export interface CollectionOf<T> {
     count: number;
   };
 }
+
+export interface UserPreferencesResponse {
+  userID: string;
+  favoritePokemons: string[];
+}
+
+export interface PokemonFavoritesUpdateRequest {
+  add: string[];
+  remove: string[];
+}

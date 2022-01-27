@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { MockedPokemons } from '../src/utils/tests/pokemons';
 import { loadPokemonsData } from '../seeds/load-pokemons';
+import { loadUserPreferences } from '../seeds/load-user-preferences';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -19,6 +20,10 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     await loadPokemonsData();
+  });
+
+  beforeEach(async () => {
+    await loadUserPreferences();
   });
 
   it('should support requesting a pokemon by its ID', async () => {
@@ -43,5 +48,22 @@ describe('AppController (e2e)', () => {
     const response = await request(app.getHttpServer()).get('/pokemons?limit=3&type=Fire').expect(200);
 
     expect(response.body).toMatchSnapshot();
+  });
+
+  it('should support adding favorite pokemons to a user preferences', async () => {
+    await request(app.getHttpServer())
+      .put('/me/favorites')
+      .send({
+        add: ['001', '002'],
+        remove: ['034'],
+      })
+      .expect(200);
+
+    const response = await request(app.getHttpServer()).get('/me').expect(200);
+
+    expect(response.body).toStrictEqual({
+      userID: 'default-user',
+      favoritePokemons: ['035', '001', '002'],
+    });
   });
 });

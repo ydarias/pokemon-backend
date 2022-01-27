@@ -12,6 +12,9 @@ import {
 } from './modules/pokemon-catalog/infra/pokemon.entity';
 import { DbPokemonRepository } from './modules/pokemon-catalog/infra/db-pokemon-repository';
 import { Repository } from 'typeorm';
+import { UserPreferencesEntity } from './modules/user-pokedex/infra/user-preferences.entity';
+import { UserPokedex } from './modules/user-pokedex/domain/user-pokedex';
+import { DbUserPreferencesRepository } from './modules/user-pokedex/infra/db-user-preferences-repository';
 
 @Module({
   imports: [
@@ -32,9 +35,10 @@ import { Repository } from 'typeorm';
         TypeEntity,
         AttackEntity,
         EvolutionEntity,
+        UserPreferencesEntity,
       ],
     }),
-    TypeOrmModule.forFeature([PokemonEntity]),
+    TypeOrmModule.forFeature([PokemonEntity, UserPreferencesEntity]),
   ],
   controllers: [AppController],
   providers: [
@@ -45,6 +49,14 @@ import { Repository } from 'typeorm';
         return new PokemonCatalog(pokemonRepository);
       },
       inject: [getRepositoryToken(PokemonEntity)],
+    },
+    {
+      provide: 'UserPokedex',
+      useFactory: (repository: Repository<UserPreferencesEntity>) => {
+        const userPreferencesRepository = new DbUserPreferencesRepository(repository);
+        return new UserPokedex(userPreferencesRepository);
+      },
+      inject: [getRepositoryToken(UserPreferencesEntity)],
     },
   ],
 })
