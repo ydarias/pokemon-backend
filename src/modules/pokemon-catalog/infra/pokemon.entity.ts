@@ -52,17 +52,14 @@ export class PokemonEntity {
   @Column()
   classification: string;
 
-  @ManyToMany(() => TypeEntity, { eager: true })
-  @JoinTable()
-  types: TypeEntity[];
+  @Column('text', { array: true, default: '{}' })
+  types: string[];
 
-  @ManyToMany(() => TypeEntity, { eager: true })
-  @JoinTable()
-  resistant: TypeEntity[];
+  @Column('text', { array: true, default: '{}' })
+  resistant: string[];
 
-  @ManyToMany(() => TypeEntity, { eager: true })
-  @JoinTable()
-  weaknesses: TypeEntity[];
+  @Column('text', { array: true, default: '{}' })
+  weaknesses: string[];
 
   @OneToOne(() => MeasurementEntity, { eager: true })
   @JoinColumn()

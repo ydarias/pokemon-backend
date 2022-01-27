@@ -11,9 +11,19 @@ export class AppController {
   ) {}
 
   @Get('pokemons')
-  async getPokemonPage(@Query('limit') limit = 5, @Query('skip') skip = 0): Promise<CollectionOf<PokemonResponse>> {
-    const items = (await this.pokemonCatalog.getPageOfPokemons(limit, skip)).map((p) => this.toPokemonResponse(p));
-    const count = await this.pokemonCatalog.getNumberOfPokemons();
+  async getPokemonPage(
+    @Query('limit') limit = 5,
+    @Query('skip') skip = 0,
+    @Query('type') type?: string,
+  ): Promise<CollectionOf<PokemonResponse>> {
+    const filter = {
+      type,
+    };
+
+    const items = (await this.pokemonCatalog.getPageOfPokemons(limit, skip, filter)).map((p) =>
+      this.toPokemonResponse(p),
+    );
+    const count = await this.pokemonCatalog.getNumberOfPokemons(filter);
     return {
       items,
       meta: {

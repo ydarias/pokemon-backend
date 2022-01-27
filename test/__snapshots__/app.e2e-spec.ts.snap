@@ -7,20 +7,20 @@ Object {
       "attacks": Object {
         "fast": Array [
           Object {
-            "damage": 10,
-            "name": "Ember",
-            "type": "Fire",
-          },
-          Object {
             "damage": 6,
             "name": "Scratch",
             "type": "Normal",
           },
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
         ],
         "special": Array [
           Object {
-            "damage": 30,
-            "name": "Flame Burst",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
           Object {
@@ -29,8 +29,8 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 30,
+            "name": "Flame Burst",
             "type": "Fire",
           },
         ],
@@ -60,12 +60,12 @@ Object {
       "maxHP": 955,
       "name": "Charmander",
       "resistant": Array [
-        "Fairy",
-        "Steel",
-        "Bug",
-        "Ice",
-        "Grass",
         "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
       ],
       "types": Array [
         "Fire",
@@ -139,12 +139,12 @@ Object {
       "maxHP": 1557,
       "name": "Charmeleon",
       "resistant": Array [
-        "Fairy",
-        "Steel",
-        "Bug",
-        "Ice",
-        "Grass",
         "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
       ],
       "types": Array [
         "Fire",
@@ -162,32 +162,32 @@ Object {
     Object {
       "Previous evolution(s)": Array [
         Object {
-          "id": "004",
-          "name": "Charmander",
-        },
-        Object {
           "id": "005",
           "name": "Charmeleon",
+        },
+        Object {
+          "id": "004",
+          "name": "Charmander",
         },
       ],
       "attacks": Object {
         "fast": Array [
           Object {
-            "damage": 10,
-            "name": "Ember",
-            "type": "Fire",
-          },
-          Object {
             "damage": 9,
             "name": "Wing Attack",
             "type": "Flying",
           },
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
         ],
         "special": Array [
           Object {
-            "damage": 35,
-            "name": "Dragon Claw",
-            "type": "Dragon",
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
           },
           Object {
             "damage": 100,
@@ -195,9 +195,9 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
-            "type": "Fire",
+            "damage": 35,
+            "name": "Dragon Claw",
+            "type": "Dragon",
           },
         ],
       },
@@ -212,12 +212,12 @@ Object {
       "maxHP": 2602,
       "name": "Charizard",
       "resistant": Array [
-        "Fairy",
-        "Steel",
-        "Bug",
-        "Fighting",
-        "Grass",
         "Fire",
+        "Grass",
+        "Fighting",
+        "Bug",
+        "Steel",
+        "Fairy",
       ],
       "types": Array [
         "Fire",
@@ -238,6 +238,247 @@ Object {
     "count": 151,
     "limit": 3,
     "skip": 3,
+  },
+}
+`;
+
+exports[`AppController (e2e) should support requesting a page of pokemons filtered by type (default order is by ID) 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "attacks": Object {
+        "fast": Array [
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 6,
+            "name": "Scratch",
+            "type": "Normal",
+          },
+        ],
+        "special": Array [
+          Object {
+            "damage": 30,
+            "name": "Flame Burst",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 25,
+            "name": "Flame Charge",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
+          },
+        ],
+      },
+      "classification": "Lizard Pokémon",
+      "evolutionRequirements": Object {
+        "amount": 25,
+        "name": "Charmander candies",
+      },
+      "evolutions": Array [
+        Object {
+          "id": "005",
+          "name": "Charmeleon",
+        },
+        Object {
+          "id": "006",
+          "name": "Charizard",
+        },
+      ],
+      "fleeRate": 0.1,
+      "height": Object {
+        "maximum": "0.68m",
+        "minimum": "0.53m",
+      },
+      "id": "004",
+      "maxCP": 841,
+      "maxHP": 955,
+      "name": "Charmander",
+      "resistant": Array [
+        "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
+      ],
+      "types": Array [
+        "Fire",
+      ],
+      "weaknesses": Array [
+        "Water",
+        "Ground",
+        "Rock",
+      ],
+      "weight": Object {
+        "maximum": "9.56kg",
+        "minimum": "7.44kg",
+      },
+    },
+    Object {
+      "Previous evolution(s)": Array [
+        Object {
+          "id": "004",
+          "name": "Charmander",
+        },
+      ],
+      "attacks": Object {
+        "fast": Array [
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 6,
+            "name": "Scratch",
+            "type": "Normal",
+          },
+        ],
+        "special": Array [
+          Object {
+            "damage": 40,
+            "name": "Fire Punch",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 30,
+            "name": "Flame Burst",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
+          },
+        ],
+      },
+      "classification": "Flame Pokémon",
+      "evolutionRequirements": Object {
+        "amount": 100,
+        "name": "Charmander candies",
+      },
+      "evolutions": Array [
+        Object {
+          "id": "006",
+          "name": "Charizard",
+        },
+      ],
+      "fleeRate": 0.07,
+      "height": Object {
+        "maximum": "1.24m",
+        "minimum": "0.96m",
+      },
+      "id": "005",
+      "maxCP": 1411,
+      "maxHP": 1557,
+      "name": "Charmeleon",
+      "resistant": Array [
+        "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
+      ],
+      "types": Array [
+        "Fire",
+      ],
+      "weaknesses": Array [
+        "Water",
+        "Ground",
+        "Rock",
+      ],
+      "weight": Object {
+        "maximum": "21.38kg",
+        "minimum": "16.63kg",
+      },
+    },
+    Object {
+      "attacks": Object {
+        "fast": Array [
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 10,
+            "name": "Quick Attack",
+            "type": "Normal",
+          },
+        ],
+        "special": Array [
+          Object {
+            "damage": 40,
+            "name": "Body Slam",
+            "type": "Normal",
+          },
+          Object {
+            "damage": 25,
+            "name": "Flame Charge",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
+          },
+        ],
+      },
+      "classification": "Fox Pokémon",
+      "evolutionRequirements": Object {
+        "amount": 50,
+        "name": "Vulpi",
+      },
+      "evolutions": Array [
+        Object {
+          "id": "038",
+          "name": "Ninetales",
+        },
+      ],
+      "fleeRate": 0.1,
+      "height": Object {
+        "maximum": "0.68m",
+        "minimum": "0.53m",
+      },
+      "id": "037",
+      "maxCP": 725,
+      "maxHP": 831,
+      "name": "Vulpix",
+      "resistant": Array [
+        "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
+      ],
+      "types": Array [
+        "Fire",
+      ],
+      "weaknesses": Array [
+        "Water",
+        "Ground",
+        "Rock",
+      ],
+      "weight": Object {
+        "maximum": "11.14kg",
+        "minimum": "8.66kg",
+      },
+    },
+  ],
+  "meta": Object {
+    "count": 10,
+    "limit": 3,
+    "skip": 0,
   },
 }
 `;

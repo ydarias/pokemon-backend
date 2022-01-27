@@ -216,5 +216,17 @@ it('Gets a page of pokemons filtered by type using a port mocked adapter', async
 But the filter should be used also to count the number of pokemons:
 
 ```typescript
+it('Gets the total amount of elements in a filtered query using a port mocked adapter', async () => {
+  const mockedPokemonsRepository = mock<ForGettingPokemons>();
+  const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+  const filter: SearchFilter = {
+    type: 'aType',
+  };
 
+  mockedPokemonsRepository.countPokemons.calledWith(filter).mockResolvedValue(4);
+
+  expect(await pokemonCatalog.getNumberOfPokemons(filter)).toBe(4);
+});
 ```
+
+At this point we just need to connect with the controller and the DB repository implementation using an e2e test to do that.

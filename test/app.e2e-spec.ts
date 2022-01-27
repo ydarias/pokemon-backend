@@ -38,4 +38,10 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toMatchSnapshot();
   });
+
+  it('should support requesting a page of pokemons filtered by type (default order is by ID)', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons?limit=3&type=Fire').expect(200);
+
+    expect(response.body).toMatchSnapshot();
+  });
 });

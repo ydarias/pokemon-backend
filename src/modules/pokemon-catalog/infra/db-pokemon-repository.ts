@@ -1,6 +1,6 @@
 import { ForGettingPokemons } from '../domain/for-getting-pokemons';
 import { Pokemon } from '../domain/models';
-import { Repository } from 'typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { PokemonEntity } from './pokemon.entity';
 
 export class DbPokemonRepository implements ForGettingPokemons {
@@ -14,14 +14,27 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return this.toPokemon(await this.pokemonRepository.findOne({ nameForSearch: name }));
   }
 
-  async findPokemons(limit: number, skip: number): Promise<Pokemon[]> {
-    return (await this.pokemonRepository.find({ skip, take: limit, order: { id: 'ASC' } })).map((e) =>
+  async findPokemons(limit: number, skip: number, filter?: SearchFilter): Promise<Pokemon[]> {
+    const where = this.parseWhereFilter(filter);
+
+    return (await this.pokemonRepository.find({ where, order: { id: 'ASC' }, skip, take: limit })).map((e) =>
       this.toPokemon(e),
     );
   }
 
   async countPokemons(filter?: SearchFilter): Promise<number> {
-    return this.pokemonRepository.count({});
+    const where = this.parseWhereFilter(filter);
+
+    return this.pokemonRepository.count({ where });
+  }
+
+  private parseWhereFilter(filter?: SearchFilter): FindConditions<PokemonEntity> {
+    const where = {};
+    if (filter?.type) {
+      where['types'] = [filter?.type];
+    }
+
+    return where;
   }
 
   private toPokemon(entity: PokemonEntity): Pokemon {
@@ -29,9 +42,9 @@ export class DbPokemonRepository implements ForGettingPokemons {
       id: entity.id,
       name: entity.name,
       classification: entity.classification,
-      types: entity.types.map((t) => t.name),
-      resistant: entity.resistant.map((r) => r.name),
-      weaknesses: entity.weaknesses.map((w) => w.name),
+      types: entity.types,
+      resistant: entity.resistant,
+      weaknesses: entity.weaknesses,
       weight: {
         maximum: entity.weight.maximum,
         minimum: entity.weight.minimum,

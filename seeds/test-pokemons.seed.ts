@@ -86,14 +86,16 @@ export const testDatasetSeed = async () => {
   for (let i = 0; i < pokemons.length; i++) {
     const p = pokemons[i];
 
+    await persistTypesInCollection(p.types, entityManager);
+
     const pokemonEntity = new PokemonEntity();
     pokemonEntity.id = p.id;
     pokemonEntity.name = p.name;
     pokemonEntity.nameForSearch = p.name.toLowerCase();
     pokemonEntity.classification = p.classification;
-    pokemonEntity.types = await persistTypesInCollection(p.types, entityManager);
-    pokemonEntity.resistant = await persistTypesInCollection(p.resistant, entityManager);
-    pokemonEntity.weaknesses = await persistTypesInCollection(p.weaknesses, entityManager);
+    pokemonEntity.types = p.types;
+    pokemonEntity.resistant = p.resistant;
+    pokemonEntity.weaknesses = p.weaknesses;
     pokemonEntity.fleeRate = p.fleeRate;
     pokemonEntity.maxCP = p.maxCP;
     pokemonEntity.maxHP = p.maxHP;
