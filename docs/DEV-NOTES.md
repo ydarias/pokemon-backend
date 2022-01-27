@@ -26,7 +26,7 @@ My first step will be to check the requirements, removing duplicated functionali
 - [x] Get a Pokemon by its ID.
 - [x] Get a Pokemon by its name.
 - [x] Query Pokemons paginated.
-- [ ] Query Pokemons by type.
+- [x] Query Pokemons by type.
 - [ ] Mark (or unmark) a Pokemon as favorite.
 - [ ] Query favorite Pokemons.
 - [ ] Get the types of Pokemons as a list.
@@ -230,3 +230,15 @@ it('Gets the total amount of elements in a filtered query using a port mocked ad
 ```
 
 At this point we just need to connect with the controller and the DB repository implementation using an e2e test to do that.
+
+```typescript
+it('should support requesting a page of pokemons filtered by type (default order is by ID)', async () => {
+  const response = await request(app.getHttpServer()).get('/pokemons?limit=3&type=Fire').expect(200);
+
+  expect(response.body).toMatchSnapshot();
+});
+```
+
+One problem at this point is how to store the types and query them to make it as performant as possible, but keeping the implementation time as short as possible.
+
+![Pokemon types column as an array of strings](./images/pokemons-types-as-array.png)
