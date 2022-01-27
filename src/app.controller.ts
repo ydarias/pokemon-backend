@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { Controller, DefaultValuePipe, Get, Inject, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { CollectionOf, PokemonResponse } from './models';
 import { ForQueryingPokemons } from './modules/pokemon-catalog/domain/for-querying-pokemons';
 import { Pokemon } from './modules/pokemon-catalog/domain/models';
@@ -12,8 +12,8 @@ export class AppController {
 
   @Get('pokemons')
   async getPokemonPage(
-    @Query('limit') limit = 5,
-    @Query('skip') skip = 0,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+    @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
     @Query('type') type?: string,
   ): Promise<CollectionOf<PokemonResponse>> {
     const filter = {
@@ -27,9 +27,8 @@ export class AppController {
     return {
       items,
       meta: {
-        // WTF: without the parsing it return a string as the JSON value
-        limit: Number.parseInt(`${limit}`),
-        skip: Number.parseInt(`${skip}`),
+        limit,
+        skip,
         count,
       },
     };
