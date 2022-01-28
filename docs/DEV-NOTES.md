@@ -253,6 +253,16 @@ At this point we start working with a new entity `User` and that opens the gates
 
 After the hexagon implementation is complete, we have the connect with the controller and actual repository implementation, which could require extra endpoints to validate the right behaviour like getting the user preferences. That forces us to add more functions to the `ForManagingUserPreferences` port but it should not take too much time.
 
+### Query favorite pokemons
+
+![Dividing pokemons query when selecting favorites](images/search-filtering-favorites.png)
+
+This requires some changes to the existing code, to make things simpler and using an iterative development we can make thiner slices:
+
+- [ ] The pokemon catalog accepts a filter that is an array of IDs.
+- [ ] The user pokedex allows to search using the same search criteria than pokemon catalog.
+- [ ] The pokemon controller allows to include favorites as a search criteria and decides which hexagon to use.
+
 ## Things to improve
 
 * The expects using the snapshots are not good as long as the ordering of some subdocuments from the JSON can change depending on the DB and loading process. Creating a custom matcher is time consuming for a code challenge.
