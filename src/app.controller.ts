@@ -3,7 +3,6 @@ import { CollectionOf, PokemonFavoritesUpdateRequest, PokemonResponse, UserPrefe
 import { ForQueryingPokemons } from './modules/pokemon-catalog/domain/for-querying-pokemons';
 import { Pokemon } from './modules/pokemon-catalog/domain/models';
 import { ForManagingUserPreferences } from './modules/user-pokedex/domain/for-managing-user-preferences';
-import { UserPreferencesEntity } from './modules/user-pokedex/infra/user-preferences.entity';
 
 @Controller()
 export class AppController {
@@ -19,10 +18,18 @@ export class AppController {
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
     @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
     @Query('type') type?: string,
+    @Query('favorites') favorites?: boolean,
   ): Promise<CollectionOf<PokemonResponse>> {
-    const filter = {
+    const filter: PokemonsQueryFilter = {
       type,
     };
+
+    if (favorites) {
+      // TODO it is hardcoded because we have no authentication/authorization yet
+      const userID = 'default-user';
+      const userPreferences = await this.userPokedex.getPreferences(userID);
+      filter.allowedIDs = userPreferences.favoritePokemons;
+    }
 
     const items = (await this.pokemonCatalog.getPageOfPokemons(limit, skip, filter)).map((p) =>
       this.toPokemonResponse(p),

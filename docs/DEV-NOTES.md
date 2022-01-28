@@ -261,7 +261,12 @@ This requires some changes to the existing code, to make things simpler and usin
 
 - [x] The pokemon catalog accepts a filter that is an array of IDs.
 - [ ] The user pokedex allows to search using the same search criteria than pokemon catalog.
+- [ ] The user pokedex allows to count with the same search criteria than pokemon catalog.
 - [ ] The pokemon controller allows to include favorites as a search criteria and decides which hexagon to use.
+
+After starting to implement the proposed concept I change my mind. Paper is much more supportive than actual code, so there are simpler options that in this case could make things simpler and more maintainable than a strict hexagonal architecture approach.
+
+![Diving pokemons query when selectin favorites at controller](images/search-filtering-favorites-simpler.png)
 
 ## Things to improve
 

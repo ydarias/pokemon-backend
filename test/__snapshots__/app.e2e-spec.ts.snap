@@ -482,3 +482,157 @@ Object {
   },
 }
 `;
+
+exports[`AppController (e2e) should support requesting a page of pokemons filtered by type and favorites 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "attacks": Object {
+        "fast": Array [
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 10,
+            "name": "Quick Attack",
+            "type": "Normal",
+          },
+        ],
+        "special": Array [
+          Object {
+            "damage": 40,
+            "name": "Body Slam",
+            "type": "Normal",
+          },
+          Object {
+            "damage": 25,
+            "name": "Flame Charge",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
+          },
+        ],
+      },
+      "classification": "Fox Pokémon",
+      "evolutionRequirements": Object {
+        "amount": 50,
+        "name": "Vulpi",
+      },
+      "evolutions": Array [
+        Object {
+          "id": "038",
+          "name": "Ninetales",
+        },
+      ],
+      "fleeRate": 0.1,
+      "height": Object {
+        "maximum": "0.68m",
+        "minimum": "0.53m",
+      },
+      "id": "037",
+      "maxCP": 725,
+      "maxHP": 831,
+      "name": "Vulpix",
+      "resistant": Array [
+        "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
+      ],
+      "types": Array [
+        "Fire",
+      ],
+      "weaknesses": Array [
+        "Water",
+        "Ground",
+        "Rock",
+      ],
+      "weight": Object {
+        "maximum": "11.14kg",
+        "minimum": "8.66kg",
+      },
+    },
+    Object {
+      "Previous evolution(s)": Array [
+        Object {
+          "id": "037",
+          "name": "Vulpix",
+        },
+      ],
+      "attacks": Object {
+        "fast": Array [
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 10,
+            "name": "Quick Attack",
+            "type": "Normal",
+          },
+        ],
+        "special": Array [
+          Object {
+            "damage": 100,
+            "name": "Fire Blast",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
+          },
+          Object {
+            "damage": 80,
+            "name": "Heat Wave",
+            "type": "Fire",
+          },
+        ],
+      },
+      "classification": "Fox Pokémon",
+      "fleeRate": 0.06,
+      "height": Object {
+        "maximum": "1.24m",
+        "minimum": "0.96m",
+      },
+      "id": "038",
+      "maxCP": 2015,
+      "maxHP": 2188,
+      "name": "Ninetales",
+      "resistant": Array [
+        "Fire",
+        "Grass",
+        "Ice",
+        "Bug",
+        "Steel",
+        "Fairy",
+      ],
+      "types": Array [
+        "Fire",
+      ],
+      "weaknesses": Array [
+        "Water",
+        "Ground",
+        "Rock",
+      ],
+      "weight": Object {
+        "maximum": "22.39kg",
+        "minimum": "17.41kg",
+      },
+    },
+  ],
+  "meta": Object {
+    "count": 2,
+    "limit": 20,
+    "skip": 0,
+  },
+}
+`;

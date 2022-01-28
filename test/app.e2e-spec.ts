@@ -63,7 +63,13 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toStrictEqual({
       userID: 'default-user',
-      favoritePokemons: ['035', '001', '002'],
+      favoritePokemons: ['035', '037', '038', '001', '002'],
     });
+  });
+
+  it('should support requesting a page of pokemons filtered by type and favorites', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons?limit=20&type=Fire&favorites=true').expect(200);
+
+    expect(response.body).toMatchSnapshot();
   });
 });

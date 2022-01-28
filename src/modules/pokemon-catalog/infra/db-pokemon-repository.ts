@@ -1,6 +1,6 @@
 import { ForGettingPokemons } from '../domain/for-getting-pokemons';
 import { Pokemon } from '../domain/models';
-import { FindConditions, Repository } from 'typeorm';
+import { FindConditions, In, Repository } from 'typeorm';
 import { PokemonEntity } from './pokemon.entity';
 
 export class DbPokemonRepository implements ForGettingPokemons {
@@ -32,6 +32,9 @@ export class DbPokemonRepository implements ForGettingPokemons {
     const where = {};
     if (filter?.type) {
       where['types'] = [filter?.type];
+    }
+    if (filter?.allowedIDs) {
+      where['id'] = In(filter.allowedIDs);
     }
 
     return where;

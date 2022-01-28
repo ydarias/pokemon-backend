@@ -9,7 +9,7 @@ export const loadUserPreferences = async () => {
 
   const userPreferencesEntity = new UserPreferencesEntity();
   userPreferencesEntity.userID = 'default-user';
-  userPreferencesEntity.favoritePokemons = ['034', '035'];
+  userPreferencesEntity.favoritePokemons = ['034', '035', '037', '038'];
 
   await entityManager.save(userPreferencesEntity);
 };
