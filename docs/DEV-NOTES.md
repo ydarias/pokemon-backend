@@ -203,7 +203,7 @@ First we will modify the hexagon methods to accept that change.
 it('Gets a page of pokemons filtered by type using a port mocked adapter', async () => {
   const mockedPokemonsRepository = mock<ForGettingPokemons>();
   const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
-  const filter: SearchFilter = {
+  const filter: PokemonsQueryFilter = {
     type: 'aType',
   };
 
@@ -219,7 +219,7 @@ But the filter should be used also to count the number of pokemons:
 it('Gets the total amount of elements in a filtered query using a port mocked adapter', async () => {
   const mockedPokemonsRepository = mock<ForGettingPokemons>();
   const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
-  const filter: SearchFilter = {
+  const filter: PokemonsQueryFilter = {
     type: 'aType',
   };
 
@@ -259,7 +259,7 @@ After the hexagon implementation is complete, we have the connect with the contr
 
 This requires some changes to the existing code, to make things simpler and using an iterative development we can make thiner slices:
 
-- [ ] The pokemon catalog accepts a filter that is an array of IDs.
+- [x] The pokemon catalog accepts a filter that is an array of IDs.
 - [ ] The user pokedex allows to search using the same search criteria than pokemon catalog.
 - [ ] The pokemon controller allows to include favorites as a search criteria and decides which hexagon to use.
 

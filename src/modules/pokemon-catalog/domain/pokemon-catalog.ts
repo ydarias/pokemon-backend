@@ -13,11 +13,11 @@ export class PokemonCatalog implements ForQueryingPokemons {
     return this.pokemonRepository.getPokemonByName(name);
   }
 
-  async getPageOfPokemons(limit = 5, skip = 0, filter?: SearchFilter): Promise<Pokemon[]> {
+  async getPageOfPokemons(limit = 5, skip = 0, filter?: PokemonsQueryFilter): Promise<Pokemon[]> {
     return this.pokemonRepository.findPokemons(limit, skip, filter);
   }
 
-  async getNumberOfPokemons(filter?: SearchFilter): Promise<number> {
+  async getNumberOfPokemons(filter?: PokemonsQueryFilter): Promise<number> {
     return this.pokemonRepository.countPokemons(filter);
   }
 }

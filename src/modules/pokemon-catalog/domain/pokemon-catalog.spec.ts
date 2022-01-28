@@ -48,7 +48,7 @@ describe('A Pokemon Catalog', () => {
   it('Gets a page of pokemons filtered by type using a port mocked adapter', async () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
-    const filter: SearchFilter = {
+    const filter: PokemonsQueryFilter = {
       type: 'aType',
     };
 
@@ -60,12 +60,26 @@ describe('A Pokemon Catalog', () => {
   it('Gets the total amount of elements in a filtered query using a port mocked adapter', async () => {
     const mockedPokemonsRepository = mock<ForGettingPokemons>();
     const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
-    const filter: SearchFilter = {
+    const filter: PokemonsQueryFilter = {
       type: 'aType',
     };
 
     mockedPokemonsRepository.countPokemons.calledWith(filter).mockResolvedValue(4);
 
     expect(await pokemonCatalog.getNumberOfPokemons(filter)).toBe(4);
+  });
+
+  // This test is pretty silly because it is already green, it just serves to purpose
+  // to change the PokemonsQueryFilter
+  it('Gets a page of pokemons limited by a given IDs array using a port mocked adapter', async () => {
+    const mockedPokemonsRepository = mock<ForGettingPokemons>();
+    const pokemonCatalog: ForQueryingPokemons = new PokemonCatalog(mockedPokemonsRepository);
+    const filter: PokemonsQueryFilter = {
+      allowedIDs: ['003', '026'],
+    };
+
+    mockedPokemonsRepository.findPokemons.calledWith(1, 1, filter).mockResolvedValue([venusaur, raichu]);
+
+    expect(await pokemonCatalog.getPageOfPokemons(1, 1, filter)).toStrictEqual([venusaur, raichu]);
   });
 });

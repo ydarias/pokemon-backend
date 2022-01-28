@@ -14,7 +14,7 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return this.toPokemon(await this.pokemonRepository.findOne({ nameForSearch: name }));
   }
 
-  async findPokemons(limit: number, skip: number, filter?: SearchFilter): Promise<Pokemon[]> {
+  async findPokemons(limit: number, skip: number, filter?: PokemonsQueryFilter): Promise<Pokemon[]> {
     const where = this.parseWhereFilter(filter);
 
     return (await this.pokemonRepository.find({ where, order: { id: 'ASC' }, skip, take: limit })).map((e) =>
@@ -22,13 +22,13 @@ export class DbPokemonRepository implements ForGettingPokemons {
     );
   }
 
-  async countPokemons(filter?: SearchFilter): Promise<number> {
+  async countPokemons(filter?: PokemonsQueryFilter): Promise<number> {
     const where = this.parseWhereFilter(filter);
 
     return this.pokemonRepository.count({ where });
   }
 
-  private parseWhereFilter(filter?: SearchFilter): FindConditions<PokemonEntity> {
+  private parseWhereFilter(filter?: PokemonsQueryFilter): FindConditions<PokemonEntity> {
     const where = {};
     if (filter?.type) {
       where['types'] = [filter?.type];
