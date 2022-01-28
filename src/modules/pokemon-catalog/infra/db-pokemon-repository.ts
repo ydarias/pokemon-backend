@@ -1,7 +1,7 @@
 import { ForGettingPokemons } from '../domain/for-getting-pokemons';
 import { Pokemon } from '../domain/models';
 import { FindConditions, In, Repository } from 'typeorm';
-import { PokemonEntity } from './pokemon.entity';
+import { PokemonEntity, TypeEntity } from './pokemon.entity';
 
 export class DbPokemonRepository implements ForGettingPokemons {
   constructor(private readonly pokemonRepository: Repository<PokemonEntity>) {}
@@ -28,8 +28,10 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return this.pokemonRepository.count({ where });
   }
 
-  findTypes(): Promise<string[]> {
-    return Promise.resolve([]);
+  async findTypes(): Promise<string[]> {
+    // Injecting this repository as a dependency could be cleaner
+    const typeRepository = this.pokemonRepository.manager.getRepository<TypeEntity>(TypeEntity);
+    return (await typeRepository.find({ order: { name: 'ASC' } })).map((t) => t.name);
   }
 
   private parseWhereFilter(filter?: PokemonsQueryFilter): FindConditions<PokemonEntity> {

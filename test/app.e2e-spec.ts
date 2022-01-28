@@ -72,4 +72,28 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toMatchSnapshot();
   });
+
+  it('should support requesting the types of pokemons (default order alphabetical)', async () => {
+    const response = await request(app.getHttpServer()).get('/pokemons/literals/types').expect(200);
+
+    expect(response.body).toStrictEqual([
+      'Bug',
+      'Dragon',
+      'Electric',
+      'Fairy',
+      'Fighting',
+      'Fire',
+      'Flying',
+      'Ghost',
+      'Grass',
+      'Ground',
+      'Ice',
+      'Normal',
+      'Poison',
+      'Psychic',
+      'Rock',
+      'Steel',
+      'Water',
+    ]);
+  });
 });

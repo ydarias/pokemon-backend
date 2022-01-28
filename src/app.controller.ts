@@ -55,6 +55,11 @@ export class AppController {
     return this.toPokemonResponse(await this.pokemonCatalog.getPokemonByItsName(name));
   }
 
+  @Get('pokemons/literals/types')
+  async getPokemonTypes(): Promise<string[]> {
+    return this.pokemonCatalog.getTypesOfPokemons();
+  }
+
   @Get('me')
   async getUserPreferences(): Promise<UserPreferencesResponse> {
     // TODO it is hardcoded because we have no authentication/authorization yet
