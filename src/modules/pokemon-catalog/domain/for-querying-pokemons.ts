@@ -5,4 +5,5 @@ export interface ForQueryingPokemons {
   getPokemonByItsName(name: string): Promise<Pokemon>;
   getPageOfPokemons(limit: number, skip: number, filter?: PokemonsQueryFilter): Promise<Pokemon[]>;
   getNumberOfPokemons(filter?: PokemonsQueryFilter): Promise<number>;
+  getTypesOfPokemons(): Promise<string[]>;
 }

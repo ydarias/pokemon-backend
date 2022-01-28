@@ -28,6 +28,10 @@ export class DbPokemonRepository implements ForGettingPokemons {
     return this.pokemonRepository.count({ where });
   }
 
+  findTypes(): Promise<string[]> {
+    return Promise.resolve([]);
+  }
+
   private parseWhereFilter(filter?: PokemonsQueryFilter): FindConditions<PokemonEntity> {
     const where = {};
     if (filter?.type) {

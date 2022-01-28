@@ -20,4 +20,8 @@ export class PokemonCatalog implements ForQueryingPokemons {
   async getNumberOfPokemons(filter?: PokemonsQueryFilter): Promise<number> {
     return this.pokemonRepository.countPokemons(filter);
   }
+
+  getTypesOfPokemons(): Promise<string[]> {
+    return this.pokemonRepository.findTypes();
+  }
 }

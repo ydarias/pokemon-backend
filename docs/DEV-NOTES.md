@@ -28,7 +28,7 @@ My first step will be to check the requirements, removing duplicated functionali
 - [x] Query Pokemons paginated.
 - [x] Query Pokemons by type.
 - [x] Mark (or unmark) a Pokemon as favorite.
-- [ ] Query favorite Pokemons.
+- [x] Query favorite Pokemons.
 - [ ] Get the types of Pokemons as a list.
 
 ### Get a Pokemon by its ID
@@ -267,6 +267,14 @@ This requires some changes to the existing code, to make things simpler and usin
 After starting to implement the proposed concept I change my mind. Paper is much more supportive than actual code, so there are simpler options that in this case could make things simpler and more maintainable than a strict hexagonal architecture approach.
 
 ![Diving pokemons query when selectin favorites at controller](images/search-filtering-favorites-simpler.png)
+
+### Get the types of pokemons as a list
+
+After all the work completed it should be a pretty simple implementation.
+
+- [ ] Pokemons Catalog returns the types of pokemons.
+- [ ] A controller allows to the get types as a list.
+- [ ] Implement the repository to get the actual list of types.
 
 ## Things to improve
 
