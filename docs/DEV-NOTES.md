@@ -29,7 +29,7 @@ My first step will be to check the requirements, removing duplicated functionali
 - [x] Query Pokemons by type.
 - [x] Mark (or unmark) a Pokemon as favorite.
 - [x] Query favorite Pokemons.
-- [ ] Get the types of Pokemons as a list.
+- [x] Get the types of Pokemons as a list.
 
 ### Get a Pokemon by its ID
 
