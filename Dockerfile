@@ -8,13 +8,11 @@ RUN yarn build
 
 FROM node:18.12.1-alpine3.16 as dependencies
 
-COPY . .
+COPY package.json package.json
 
 RUN yarn install --production
 
 FROM node:18.12.1-alpine3.16 as runner
-
-RUN apk add dumb-init
 
 ENV NODE_ENV production
 
