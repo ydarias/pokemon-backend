@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+.idea
+docs
+seeds
+test
+npm-debug.log
