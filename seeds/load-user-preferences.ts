@@ -1,9 +1,8 @@
-import { getConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { UserPreferencesEntity } from '../src/modules/user-pokedex/infra/user-preferences.entity';
 
-export const loadUserPreferences = async () => {
-  const connection = await getConnection();
-  const entityManager = connection.createEntityManager();
+export const loadUserPreferences = async (datasource: DataSource) => {
+  const entityManager = datasource.manager;
 
   await entityManager.delete(UserPreferencesEntity, {});
 
