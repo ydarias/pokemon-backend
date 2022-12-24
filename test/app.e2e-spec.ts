@@ -22,10 +22,6 @@ describe('AppController (e2e)', () => {
 
     const datasource = app.get(DataSource);
     await loadPokemonsData(datasource);
-  });
-
-  beforeEach(async () => {
-    const datasource = app.get(DataSource);
     await loadUserPreferences(datasource);
   });
 
