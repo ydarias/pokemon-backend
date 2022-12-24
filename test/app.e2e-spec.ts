@@ -5,6 +5,7 @@ import { AppModule } from '../src/app.module';
 import { MockedPokemons } from '../src/utils/tests/pokemons';
 import { loadPokemonsData } from '../seeds/load-pokemons';
 import { loadUserPreferences } from '../seeds/load-user-preferences';
+import { DataSource } from 'typeorm';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -19,11 +20,13 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
-    await loadPokemonsData();
+    const datasource = app.get(DataSource);
+    await loadPokemonsData(datasource);
   });
 
   beforeEach(async () => {
-    await loadUserPreferences();
+    const datasource = app.get(DataSource);
+    await loadUserPreferences(datasource);
   });
 
   it('should support requesting a pokemon by its ID', async () => {

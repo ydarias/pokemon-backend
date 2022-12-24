@@ -7,7 +7,7 @@ export class DbUserPreferencesRepository implements ForStoringAndGettingUserPref
   constructor(private readonly userPreferencesRepository: Repository<UserPreferencesEntity>) {}
 
   findUserPreferences(userID: string): Promise<UserPreferences> {
-    return this.userPreferencesRepository.findOne(userID);
+    return this.userPreferencesRepository.findOne({ where: { userID } });
   }
 
   updateUserPreferences(preferences: UserPreferences): Promise<UserPreferences> {

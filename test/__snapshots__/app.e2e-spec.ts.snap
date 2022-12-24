@@ -7,20 +7,20 @@ Object {
       "attacks": Object {
         "fast": Array [
           Object {
-            "damage": 6,
-            "name": "Scratch",
-            "type": "Normal",
-          },
-          Object {
             "damage": 10,
             "name": "Ember",
             "type": "Fire",
           },
+          Object {
+            "damage": 6,
+            "name": "Scratch",
+            "type": "Normal",
+          },
         ],
         "special": Array [
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 30,
+            "name": "Flame Burst",
             "type": "Fire",
           },
           Object {
@@ -29,8 +29,8 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 30,
-            "name": "Flame Burst",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
         ],
@@ -102,8 +102,8 @@ Object {
         ],
         "special": Array [
           Object {
-            "damage": 40,
-            "name": "Fire Punch",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
           Object {
@@ -112,8 +112,8 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 40,
+            "name": "Fire Punch",
             "type": "Fire",
           },
         ],
@@ -173,21 +173,21 @@ Object {
       "attacks": Object {
         "fast": Array [
           Object {
-            "damage": 9,
-            "name": "Wing Attack",
-            "type": "Flying",
-          },
-          Object {
             "damage": 10,
             "name": "Ember",
             "type": "Fire",
           },
+          Object {
+            "damage": 9,
+            "name": "Wing Attack",
+            "type": "Flying",
+          },
         ],
         "special": Array [
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
-            "type": "Fire",
+            "damage": 35,
+            "name": "Dragon Claw",
+            "type": "Dragon",
           },
           Object {
             "damage": 100,
@@ -195,9 +195,9 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 35,
-            "name": "Dragon Claw",
-            "type": "Dragon",
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
           },
         ],
       },
@@ -266,13 +266,13 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 25,
-            "name": "Flame Charge",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 25,
+            "name": "Flame Charge",
             "type": "Fire",
           },
         ],
@@ -332,20 +332,20 @@ Object {
       "attacks": Object {
         "fast": Array [
           Object {
-            "damage": 10,
-            "name": "Ember",
-            "type": "Fire",
-          },
-          Object {
             "damage": 6,
             "name": "Scratch",
             "type": "Normal",
           },
+          Object {
+            "damage": 10,
+            "name": "Ember",
+            "type": "Fire",
+          },
         ],
         "special": Array [
           Object {
-            "damage": 40,
-            "name": "Fire Punch",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
           Object {
@@ -354,8 +354,8 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 40,
+            "name": "Fire Punch",
             "type": "Fire",
           },
         ],
@@ -406,20 +406,20 @@ Object {
         "fast": Array [
           Object {
             "damage": 10,
-            "name": "Ember",
-            "type": "Fire",
+            "name": "Quick Attack",
+            "type": "Normal",
           },
           Object {
             "damage": 10,
-            "name": "Quick Attack",
-            "type": "Normal",
+            "name": "Ember",
+            "type": "Fire",
           },
         ],
         "special": Array [
           Object {
-            "damage": 40,
-            "name": "Body Slam",
-            "type": "Normal",
+            "damage": 55,
+            "name": "Flamethrower",
+            "type": "Fire",
           },
           Object {
             "damage": 25,
@@ -427,9 +427,9 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
-            "type": "Fire",
+            "damage": 40,
+            "name": "Body Slam",
+            "type": "Normal",
           },
         ],
       },
@@ -476,7 +476,7 @@ Object {
     },
   ],
   "meta": Object {
-    "count": 10,
+    "count": 151,
     "limit": 3,
     "skip": 0,
   },
@@ -507,13 +507,13 @@ Object {
             "type": "Normal",
           },
           Object {
-            "damage": 25,
-            "name": "Flame Charge",
+            "damage": 55,
+            "name": "Flamethrower",
             "type": "Fire",
           },
           Object {
-            "damage": 55,
-            "name": "Flamethrower",
+            "damage": 25,
+            "name": "Flame Charge",
             "type": "Fire",
           },
         ],
@@ -570,19 +570,19 @@ Object {
         "fast": Array [
           Object {
             "damage": 10,
-            "name": "Ember",
-            "type": "Fire",
+            "name": "Quick Attack",
+            "type": "Normal",
           },
           Object {
             "damage": 10,
-            "name": "Quick Attack",
-            "type": "Normal",
+            "name": "Ember",
+            "type": "Fire",
           },
         ],
         "special": Array [
           Object {
-            "damage": 100,
-            "name": "Fire Blast",
+            "damage": 80,
+            "name": "Heat Wave",
             "type": "Fire",
           },
           Object {
@@ -591,8 +591,8 @@ Object {
             "type": "Fire",
           },
           Object {
-            "damage": 80,
-            "name": "Heat Wave",
+            "damage": 100,
+            "name": "Fire Blast",
             "type": "Fire",
           },
         ],
@@ -630,7 +630,7 @@ Object {
     },
   ],
   "meta": Object {
-    "count": 2,
+    "count": 151,
     "limit": 20,
     "skip": 0,
   },

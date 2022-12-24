@@ -1,4 +1,4 @@
-import { EntityManager, getConnection } from 'typeorm';
+import { DataSource, EntityManager } from 'typeorm';
 import {
   AttackEntity,
   EvolutionEntity,
@@ -79,9 +79,8 @@ function parseEvolutionRequirementsEntity(p) {
   return evolutionRequirementsEntity;
 }
 
-export const loadPokemonsData = async () => {
-  const connection = await getConnection();
-  const entityManager = connection.createEntityManager();
+export const loadPokemonsData = async (datasource: DataSource) => {
+  const entityManager = datasource.manager;
 
   for (let i = 0; i < pokemons.length; i++) {
     const p = pokemons[i];

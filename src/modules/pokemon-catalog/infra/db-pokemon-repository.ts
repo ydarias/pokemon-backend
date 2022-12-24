@@ -1,40 +1,20 @@
 import { ForGettingPokemons } from '../domain/for-getting-pokemons';
 import { Pokemon } from '../domain/models';
-import { FindConditions, In, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { PokemonEntity, TypeEntity } from './pokemon.entity';
 
 export class DbPokemonRepository implements ForGettingPokemons {
   constructor(private readonly pokemonRepository: Repository<PokemonEntity>) {}
 
   async getPokemonById(id: string): Promise<Pokemon> {
-    return this.toPokemon(await this.pokemonRepository.findOne(id));
+    return this.toPokemon(await this.pokemonRepository.findOne({ where: { id } }));
   }
 
   async getPokemonByName(name: string): Promise<Pokemon> {
-    return this.toPokemon(await this.pokemonRepository.findOne({ nameForSearch: name }));
+    return this.toPokemon(await this.pokemonRepository.findOne({ where: { nameForSearch: name } }));
   }
 
   async findPokemons(limit: number, skip: number, filter?: PokemonsQueryFilter): Promise<Pokemon[]> {
-    const where = this.parseWhereFilter(filter);
-
-    return (await this.pokemonRepository.find({ where, order: { id: 'ASC' }, skip, take: limit })).map((e) =>
-      this.toPokemon(e),
-    );
-  }
-
-  async countPokemons(filter?: PokemonsQueryFilter): Promise<number> {
-    const where = this.parseWhereFilter(filter);
-
-    return this.pokemonRepository.count({ where });
-  }
-
-  async findTypes(): Promise<string[]> {
-    // Injecting this repository as a dependency could be cleaner
-    const typeRepository = this.pokemonRepository.manager.getRepository<TypeEntity>(TypeEntity);
-    return (await typeRepository.find({ order: { name: 'ASC' } })).map((t) => t.name);
-  }
-
-  private parseWhereFilter(filter?: PokemonsQueryFilter): FindConditions<PokemonEntity> {
     const where = {};
     if (filter?.type) {
       where['types'] = [filter?.type];
@@ -43,7 +23,27 @@ export class DbPokemonRepository implements ForGettingPokemons {
       where['id'] = In(filter.allowedIDs);
     }
 
-    return where;
+    return (await this.pokemonRepository.find({ where, order: { id: 'ASC' }, skip, take: limit })).map((e) =>
+      this.toPokemon(e),
+    );
+  }
+
+  async countPokemons(filter?: PokemonsQueryFilter): Promise<number> {
+    const where = {};
+    if (filter?.type) {
+      where['types'] = [filter?.type];
+    }
+    if (filter?.allowedIDs) {
+      where['id'] = In(filter.allowedIDs);
+    }
+
+    return this.pokemonRepository.count(where);
+  }
+
+  async findTypes(): Promise<string[]> {
+    // Injecting this repository as a dependency could be cleaner
+    const typeRepository = this.pokemonRepository.manager.getRepository<TypeEntity>(TypeEntity);
+    return (await typeRepository.find({ order: { name: 'ASC' } })).map((t) => t.name);
   }
 
   private toPokemon(entity: PokemonEntity): Pokemon {
