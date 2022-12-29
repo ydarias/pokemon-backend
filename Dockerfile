@@ -1,5 +1,7 @@
 FROM node:18.12.1-alpine3.16 as builder
 
+RUN apk add --no-cache libc6-compat
+
 COPY . .
 
 RUN yarn install
@@ -13,6 +15,8 @@ COPY package.json package.json
 RUN yarn install --production
 
 FROM node:18.12.1-alpine3.16 as runner
+
+RUN apk add --no-cache dumb-init
 
 ENV NODE_ENV production
 

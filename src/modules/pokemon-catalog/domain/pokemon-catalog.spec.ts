@@ -4,6 +4,7 @@ import { ForQueryingPokemons } from './for-querying-pokemons';
 import { PokemonCatalog } from './pokemon-catalog';
 import { MockedPokemons } from '../../../utils/tests/pokemons';
 import { ForGettingPokemons } from './for-getting-pokemons';
+import { PokemonsQueryFilter } from './search-filter.model';
 
 describe('A Pokemon Catalog', () => {
   const raichu = MockedPokemons.raichu();

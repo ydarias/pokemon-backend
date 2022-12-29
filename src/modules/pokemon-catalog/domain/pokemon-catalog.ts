@@ -1,6 +1,7 @@
 import { ForQueryingPokemons } from './for-querying-pokemons';
 import { Pokemon } from './models';
 import { ForGettingPokemons } from './for-getting-pokemons';
+import { PokemonsQueryFilter } from './search-filter.model';
 
 export class PokemonCatalog implements ForQueryingPokemons {
   constructor(private readonly pokemonRepository: ForGettingPokemons) {}

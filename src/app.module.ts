@@ -20,7 +20,7 @@ import { DbUserPreferencesRepository } from './modules/user-pokedex/infra/db-use
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'database',
+      host: 'localhost',
       port: 5432,
       username: 'username',
       password: 'password',
