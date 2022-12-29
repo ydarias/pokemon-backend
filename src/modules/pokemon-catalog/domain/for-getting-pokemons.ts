@@ -1,4 +1,5 @@
 import { Pokemon } from './models';
+import { PokemonsQueryFilter } from './search-filter.model';
 
 export interface ForGettingPokemons {
   getPokemonById(id: string): Promise<Pokemon>;

@@ -2,6 +2,7 @@ import { ForGettingPokemons } from '../domain/for-getting-pokemons';
 import { Pokemon } from '../domain/models';
 import { In, Repository } from 'typeorm';
 import { PokemonEntity, TypeEntity } from './pokemon.entity';
+import { PokemonsQueryFilter } from '../domain/search-filter.model';
 
 export class DbPokemonRepository implements ForGettingPokemons {
   constructor(private readonly pokemonRepository: Repository<PokemonEntity>) {}

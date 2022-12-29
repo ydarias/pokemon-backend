@@ -3,6 +3,7 @@ import { CollectionOf, PokemonFavoritesUpdateRequest, PokemonResponse, UserPrefe
 import { ForQueryingPokemons } from './modules/pokemon-catalog/domain/for-querying-pokemons';
 import { Pokemon } from './modules/pokemon-catalog/domain/models';
 import { ForManagingUserPreferences } from './modules/user-pokedex/domain/for-managing-user-preferences';
+import { PokemonsQueryFilter } from './modules/pokemon-catalog/domain/search-filter.model';
 
 @Controller()
 export class AppController {
